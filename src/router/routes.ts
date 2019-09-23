@@ -7,8 +7,6 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    isGuard:true,
-    isGuard:true,
     component: () => import("../views/home/index.vue")
   },
   {

@@ -1,4 +1,4 @@
-.content .channelBox .channel-item, .content .channelBox .channel-item span, .content .brandBox .brand-title, .content .newGoodsBox .newGoods-title, .content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-name, .content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-price, .content .hotGoodsBox .hotGoods-title {
+.content .channelBox .channel-item, .content .channelBox .channel-item span, .content .brandBox .brand-title, .content .newGoodsBox .newGoods-title, .content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-name, .content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-price, .content .hotGoodsBox .hotGoods-title, .content .topicBox .topic-title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -179,4 +179,16 @@
   font-size: 15px;
   height: 0.3rem;
   color: #8b0000;
+}
+
+.content .topicBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content .topicBox .topic-title {
+  width: 100%;
+  height: 0.5rem;
+  font-size: 15px;
 }

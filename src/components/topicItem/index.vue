@@ -27,12 +27,12 @@ export default {
   computed: {},
   methods: {
     jumpDetail(id){
-      this.$router.push(`/topicDetail/${id}`)
+      this.$router.push({path:"/topicDetail/"+id})
     }
   },
   created() {},
   mounted() {
-    console.log(this.item, "............");
+
   }
 };
 </script>

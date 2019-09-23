@@ -32,7 +32,7 @@ export default {
   },
   created() {
     //获取列表数据
-    this.topicListAction({ page: this.page });
+   !this.topicList.length&&this.topicListAction({ page: this.page });
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.main, {

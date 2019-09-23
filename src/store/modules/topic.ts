@@ -14,16 +14,13 @@ export default {
             state.totalPages = totalPages;
         },
         setCurrentPage(state:any,payload:any){
-            console.log(payload)
             state.currentPage=payload
         }
     },
     actions: {
         async topicListAction(context: any, params: any) {
             let { commit, state } = context
-            // console.log(context,";;;;;;;;;;;")
             let result: any = await requestTopicList(params)
-            console.log(result, "rrrrrrrrrrrr")
             if (result.errno === 0) {
                 commit("initData",
                     {
