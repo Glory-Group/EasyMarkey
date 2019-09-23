@@ -1,4 +1,4 @@
-import { requestTopicList } from "@/service/index"
+import { requestTopicList,requestTopicDetail } from "@/service/index"
 
 export default {
     namespaced: true,
@@ -6,6 +6,7 @@ export default {
         topicList: [],
         totalPages: 0,
         currentPage: 1,
+        topicDetail:{},
     },
     mutations: {
         initData(state: any, preload: any) {
@@ -13,9 +14,18 @@ export default {
             state.topicList = state.topicList.concat(topicList);
             state.totalPages = totalPages;
         },
+<<<<<<< HEAD
         setCurrentPage(state:any,payload:any){
             state.currentPage=payload
+=======
+        setCurrentPage(state: any, payload: any) {
+            state.currentPage = payload
+        },
+        setTopicDetail(state:any,payload:any){
+            state.topicDetail=payload
+>>>>>>> 8eecf8a3000b438dd51952df45ae0bb3e1327916
         }
+      
     },
     actions: {
         async topicListAction(context: any, params: any) {
@@ -27,14 +37,23 @@ export default {
                         topicList: result.data.data,
                         totalPages: result.data.totalPages
                     })
-
             }
             return result;
+        },
+        async getTopicDetail(context: any, payload: any) {   
+            let {commit}=context
+            let result:any=await requestTopicDetail({id:payload})  
+            if(result.errno===0){
+                commit("setTopicDetail",result.data)
+            }
+            return result;  
         }
+        
     },
     getters: {
         topicList: (state: any) => state.topicList,
-        totalPages: (state: any) => state.totalPages
+        totalPages: (state: any) => state.totalPages,
+        topicDetail: (state: any) => state.topicDetail
     }
 
 }

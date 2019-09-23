@@ -28,11 +28,15 @@ export default {
   },
   methods: {
     ...mapActions("topic", ["topicListAction"]),
-    ...mapMutations("topic", ["setCurrentPage"])
+    ...mapMutations("topic", ["setCurrentPage",])
   },
   created() {
     //获取列表数据
+<<<<<<< HEAD
    !this.topicList.length&&this.topicListAction({ page: this.page });
+=======
+    !this.topicList.length&&this.topicListAction({ page: this.page });
+>>>>>>> 8eecf8a3000b438dd51952df45ae0bb3e1327916
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.main, {
