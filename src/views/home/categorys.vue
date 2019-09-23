@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="main">categorys</div>
-    <v-footer></v-footer>
   </div>
 </template>
 <script>

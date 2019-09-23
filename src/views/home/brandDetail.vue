@@ -3,7 +3,6 @@
         <div class="main">
             branddetail
         </div>
-        <v-footer></v-footer>
     </div>
 </template>
 <script>

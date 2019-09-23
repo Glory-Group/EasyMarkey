@@ -10,12 +10,12 @@ const routes = [
     component: () => import("../views/home/index.vue")
   },
   {
-    path: '/brandDetail',
+    path: '/brandDetail/:id',
     name: 'brandDetail',
     component: () => import("../views/home/brandDetail.vue")
   },
   {
-    path: '/goods',
+    path: '/goods/:id',
     name: 'goods',
     component: () => import("../views/home/goods.vue")
   },
@@ -66,7 +66,7 @@ const routes = [
   },
   {
     path: "/",
-    redirect: "/login"
+    redirect: "/home"
   }
 ]
 export default routes;

@@ -1,0 +1,160 @@
+%juzhong{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    .content{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      .swiper-wrap{
+         width: 100%;
+         height: 2rem;
+         display: flex;
+      }
+      .channelBox{
+        width: 100%;
+        height: 0.7rem;
+        display: flex;
+        .channel-item{
+          flex:1;
+          flex-direction: column;
+           @extend %juzhong;
+          span{
+            display: flex;
+            @extend %juzhong;
+            &:nth-of-type(1){
+              width: 0.48rem;
+              height: 0.48rem;
+              img{
+                width: 0.25rem;
+                height: 0.25rem;
+              }
+            }
+          }
+        }
+      }
+      .brandBox{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        .brand-title{
+          width: 100%;
+          height: 0.5rem;
+          @extend %juzhong;
+          font-size: 16px;
+        }
+        .brand-wrap{
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          .brand-item{
+            width: 50%;
+            height: 1.1rem;
+            position: relative;
+            color: black;
+            img{
+              width: 100%;
+              height: 100%;
+            }
+            .brand-name{
+              position: absolute;
+              top:0.05rem;
+              left:0.1rem
+            }
+            .brand-price{
+              position: absolute;
+              top:0.25rem;
+              left:0.1rem;
+              color: #a9a9a9;
+            }
+          }
+        }
+      }
+      .newGoodsBox{
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          .newGoods-title{
+              width: 100%;
+              height: 0.5rem;
+              font-size: 16px;
+              @extend %juzhong;
+          }
+          .newGoods-wrap{
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              .newGoods-item{
+                  width: 50%;
+                  height: 2rem;
+                  display: flex;
+                  flex-direction: column;
+                  img{
+                      width: 100%;
+                      height: 1.4rem;
+                  }
+                  .newGoods-name{
+                      flex:1;
+                      color: black;
+                      @extend %juzhong;
+                  }
+                  .newGoods-price{
+                      flex:1;
+                      @extend %juzhong;
+                      color: #8b0000;
+                  }
+              }
+          }
+      }
+      .hotGoodsBox{
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          .hotGoods-title{
+              width: 100%;
+              height: 0.5rem;
+              @extend %juzhong;
+              font-size: 16px;
+
+          }
+          .hotGoods-wrap{
+              width: 100%;
+              padding: 0 10px;
+              display: flex;
+              flex-direction: column;
+              .hotGoods-item{
+                  display: flex;
+                  height: 1.5rem;
+                  padding:5px 0;
+                  border-top: 1px solid #ccc;
+                  img{
+                      width: 1.4rem;
+                      height: 1.4rem;
+                  }
+                  .hotGoods-info{
+                      flex:1;
+                      padding:25px 0;
+                      display: flex;
+                      flex-direction: column;
+                      .hotGoods-name{
+                          font-size: 16px;
+                          color: black;
+                          height: 0.3rem;
+                      }
+                      .hotGoods-info-item{
+                          font-size: 14px;
+                          height: 0.3rem;
+                          color: #a9a9a9;
+                      }
+                      .hotGoods-price{
+                          font-size: 15px;
+                          height: 0.3rem;
+                          color:#8b0000;
+                      }
+                  }
+              }
+          }
+      }
+    }
