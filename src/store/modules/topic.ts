@@ -14,16 +14,11 @@ export default {
             state.topicList = state.topicList.concat(topicList);
             state.totalPages = totalPages;
         },
-<<<<<<< HEAD
-        setCurrentPage(state:any,payload:any){
-            state.currentPage=payload
-=======
         setCurrentPage(state: any, payload: any) {
             state.currentPage = payload
         },
         setTopicDetail(state:any,payload:any){
             state.topicDetail=payload
->>>>>>> 8eecf8a3000b438dd51952df45ae0bb3e1327916
         }
       
     },

@@ -24,16 +24,15 @@ export default {
       id:0,
     };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     jumpDetail(id){
-      this.$router.push({path:"/topicDetail/"+id})
+      this.$router.push("/topicDetail/"+id)
     }
   },
   created() {},
   mounted() {
+
   }
 };
 </script>

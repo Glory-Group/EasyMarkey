@@ -11,6 +11,9 @@ export default {
       hotGoodsList:[],//人气推荐数据
       categoryList:[],//类型列表数据
       topicList:[],//专题精选数据
+      currentPage:0,//当前加载页数
+      totalPage:1,//类型列表数据页数
+      cateList:[]//加载页数对应数据
     },
     mutations: {
        //设置首页数据
@@ -21,7 +24,21 @@ export default {
             obj.forEach((item,index)=>{
               state[item[0]]=item[1]
             })
-       } 
+            let data=JSON.parse(JSON.stringify(payload.categoryList))
+            state.totalPage=data.length
+            state.categoryList=data
+            state.cateList=[...state.cateList,data[state.currentPage]]
+         } ,
+         //设置加载页数
+       setCurrentPage(state: any, payload: any) {
+         let {categoryList,totalPage}=state
+         state.currentPage = payload
+         if(state.currentPage<totalPage){
+          state.cateList=[...state.cateList,categoryList[state.currentPage]]
+         }else{
+           state.cateList=[...state.cateList]
+         }
+       }
     },
     actions: {
         //调用获取首页数据接口
@@ -34,5 +51,7 @@ export default {
          }
         
        }
+    },
+    getters:{
     }
 }

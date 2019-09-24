@@ -1,11 +1,12 @@
 <template>
   <div>
     <footer class="footer">
-      <router-link to="/home">首页</router-link>
-      <router-link to="/topic">专题</router-link>
-      <router-link to="/catelog">分类</router-link>
-      <router-link to="/cart">购物车</router-link>
-      <router-link to="/mine">我的</router-link>
+        <router-link class="foot-item" active-class="active" v-for="(item,index) in tabList" :key="index" :to="item.url"  >
+          <span :class="pathname===item.url? 'itemIcon activeIcon' :'itemIcon'" >
+              <i :class=" item.icon" ></i>
+          </span>
+          <span class="itemName" >{{item.name}}</span>
+        </router-link>
     </footer>
   </div>
 </template>
@@ -14,14 +15,75 @@ export default {
   props: {},
   components: {},
   data() {
-    return {};
+    return {
+      tabList: [
+        {
+          icon: "iconfont icon-caidaniconshouyehui",
+          name: "首页",
+          url: "/home"
+        },
+        { icon: "iconfont icon-clone", name: "专题", url: "/topic" },
+        { icon: "iconfont icon-sort", name: "分类", url: "/catelog" },
+        { icon: "iconfont icon-cart", name: "购物车", url: "/cart" },
+        { icon: "iconfont icon-mine", name: "我的", url: "/mine" }
+      ],
+      pathname:this.$route.path
+    };
   },
   computed: {},
   methods: {},
   created() {},
-  mounted() {}
+  mounted() {
+    
+  }
 };
 </script>
 <style scoped lang="scss">
-
+.footer{
+  display: flex;
+}
+.foot-item{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+}
+.active{
+    color: #2196f3;
+    font-weight: bolder;
+}
+.itemIcon{
+    flex:1;
+    text-align: center;
+    font-size: 0.44rem;
+    transition: all 0.5s ease-in-out;
+    
+    i{
+      width: 0.14rem;
+      height: 0.14rem;
+      display: flex;
+    }
+}
+.itemName{
+    flex:1;
+    text-align: center;
+    font-size: 0.14rem;
+    transition: all .5s;
+}
+.activeIcon{
+    animation: bounceTo 0.5s;
+}
+@keyframes bounceTo {
+    from, 20%, 40%, 60%, 80%, to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
 </style>

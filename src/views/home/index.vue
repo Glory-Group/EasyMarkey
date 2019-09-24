@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="main">
-      <div class="content">
+    <div class="main" ref="main" >
+      <div class="content"  >
         <div class="swiper-wrap">
           <swiper :options="swiperOption">
             <swiper-slide v-for="(item) in banner" :key="item.id">
-              <img style="width:100%;height:100%" :src="item.image_url" :alt="item.name" />
+              <img style="width:100%;height:100%" v-lazy="item.image_url" :alt="item.name" />
             </swiper-slide>
             <div class="swiper-scrollbar"></div>
             <div class="swiper-pagination"></div>
@@ -42,6 +42,7 @@
               <div class="swiper-scrollbar"></div>
             </swiper>
           </div>
+          <v-cateGory  :cateGoryList="cateList" ></v-cateGory>
         </div>
       </div>
     </div>
@@ -52,7 +53,7 @@
 import "@/assets/swiper/swiper.css";
 import { mapState, mapMutations, mapActions } from "vuex";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-
+import BScroll from "better-scroll";
 export default {
   props: {},
   components: {
@@ -61,6 +62,7 @@ export default {
   },
   data() {
     return {
+      page:0,
       swiperOption: {
         autoplay: {
           delay: 1000,
@@ -84,27 +86,50 @@ export default {
       "hotGoodsList",
       "brandList",
       "categoryList",
-      "topicList"
+      "topicList",
+      "currentPage",
+      "totalPage",
+      "cateList"
     ])
   },
   methods: {
-    ...mapActions("home", ["homeListAction"]),
-    listType() {
-      let { errno, errmsg } = this.homeList;
-      console.log(errno, errmsg);
-    }
+    ...mapMutations('home',['setCurrentPage']),
+    ...mapActions("home", ["homeListAction"])
   },
-  created() {},
+  created() {
+
+  },
   mounted() {
+    this.scroll= new BScroll(this.$refs.main,{
+      click:true,
+      probeType:3,
+      mouseWheel:true
+    })
+    this.scroll.on("scrollEnd",e=>{
+      if(e.y < this.scroll.maxScrollY +100 ){
+        if(this.page<this.totalPage){
+          setTimeout(()=>{
+            this.page=this.page+1;
+            this.setCurrentPage(this.page)
+          },1000)
+        }
+      }else{
+        return
+      }
+    })
     this.homeListAction();
-    this.listType();
   }
 };
 </script>
-<style >
+<style scoped  lang="scss">
 @import url("./scss/index.css");
 .swiper-pagination-bullet {
   margin: 0 5px;
+
 }
+.main{
+  overflow: hidden;
+}
+
 </style>
 

@@ -22,7 +22,7 @@ const routes = [
     component: () => import("../views/home/goods.vue")
   },
   {
-    path: '/categorys',
+    path: '/categorys/:id',
     name: 'categorys',
     isGuard:true,
     component: () => import("../views/home/categorys.vue")
