@@ -3,7 +3,7 @@
     <div class="main" ref="main">
       <div class="main-content">
         <div v-for="(item) in topicList" :key="item.id" class="main-content-item">
-          <TopicItem :item="item"></TopicItem>
+          <TopicItem :item="item" :isShow=true></TopicItem>
         </div>
         <div class="upload">{{uploadTitle}}</div>
       </div>
@@ -38,7 +38,8 @@ export default {
   mounted() {
     this.scroll = new BScroll(this.$refs.main, {
       click: true,
-      probeType: 3
+      probeType: 3,
+      mouseWheel:true,//鼠标滚轮
     });
     this.scroll.on("scrollEnd", e => {
       if (e.y === this.scroll.maxScrollY) {

@@ -51,6 +51,7 @@ body {
 .main {
   flex: 1;
   overflow: auto;
+  background-color: #f5f5f9;
 }
 .footer {
   width: 100%;

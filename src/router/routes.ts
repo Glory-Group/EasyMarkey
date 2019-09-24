@@ -76,6 +76,12 @@ const routes = [
     component: () => import("../views/mine/address.vue")
   },
   {
+    path: '/topicCommentWrite/:id',
+    name: 'addComment',
+    isGuard:true,
+    component: () => import("../views/comment/addComment.vue")
+  },
+  {
     path: "/",
     redirect: "/home"
   }

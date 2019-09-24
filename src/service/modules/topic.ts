@@ -9,3 +9,7 @@ export let requestTopicDetail=(params:any)=>{
 export let requestRelatedTopic=(params:any)=>{
     return request.get("/topic/related",{params})
 }
+//添加留言 typeId:1 专题页 0：商品
+export let postComment=(params:any)=>{
+    return request.post("/comment/post",params)
+}

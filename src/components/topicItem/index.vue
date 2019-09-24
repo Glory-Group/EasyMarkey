@@ -4,9 +4,9 @@
       <img :src="item.scene_pic_url" alt />
     </dt>
     <dd class="topic-item-content">
-      <p>{{item.title}}</p>
-      <p class="subtitle">{{item.subtitle}}</p>
-      <p class="price_info">{{item.price_info}}元起</p>
+      <p :style="!isShow&&'height:50px,line-heigth:50px'">{{item.title}}</p>
+      <p class="subtitle" v-if="isShow">{{item.subtitle}}</p>
+      <p class="price_info" v-if="isShow">{{item.price_info}}元起</p>
     </dd>
   </dl>
 </template>
@@ -14,26 +14,31 @@
 export default {
   props: {
     item: {
-      type: Object,
-      
+      type: Object
+    },
+    isShow: {
+      type: Boolean
     }
   },
   components: {},
   data() {
     return {
-      id:0,
+      id: 0
     };
   },
   computed: {},
   methods: {
-    jumpDetail(id){
-      this.$router.push("/topicDetail/"+id)
+    jumpDetail(id) {
+      if (this.$router.history.current.path.includes("/topicDetail")) {
+         this.$router.push("/topicDetail/" + id);
+        this.$router.go(0);
+      } else {
+        this.$router.push("/topicDetail/" + id);
+      }
     }
   },
   created() {},
-  mounted() {
-
-  }
+  mounted() {}
 };
 </script>
 <style scoped lang="scss">

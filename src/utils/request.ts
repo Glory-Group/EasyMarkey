@@ -6,7 +6,7 @@ import {getToken} from "./saveToken";
 const instance = axios.create({
     baseURL: 'http://localhost:8888',
     timeout: 1000,
-     headers: {'authorization': getToken()}
+     headers: {'x-nideshop-token': getToken()}
 });
 
 // 请求拦截器
