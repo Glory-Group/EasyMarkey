@@ -7,6 +7,7 @@ import HotGoodsItem from "../hotGoodsItem/index.vue"
 import vheader from "../header/index.vue"
 import CateGory from "../cateGory/index.vue"
 import commentITem from "../commentItem/index.vue"
+import Swiper from "../swiper/index.vue"
 export default{
     install(Vue:any){
         Vue.component("v-footer",vfooter)
@@ -18,5 +19,6 @@ export default{
         Vue.component("v-header",vheader)
         Vue.component("v-cateGory",CateGory)
         Vue.component("v-commentItem",commentITem)
+        Vue.component("v-swiper",Swiper)
     }
 }   

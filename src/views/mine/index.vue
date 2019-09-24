@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="main">mine</div>
-    <v-footer></v-footer>
+    <v-footer>
+      
+    </v-footer>
   </div>
 </template>
 <script>

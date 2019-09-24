@@ -21,7 +21,6 @@ export default {
     mutations: {
        //设置首页数据
        setHomeList(state:any,payload:any){
-            console.log(payload)
             state.homeList=payload
             let obj=Object.entries(payload)
             obj.forEach((item,index)=>{

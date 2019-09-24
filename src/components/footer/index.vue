@@ -1,12 +1,15 @@
 <template>
   <div>
     <footer class="footer">
-        <router-link class="foot-item" active-class="active" v-for="(item,index) in tabList" :key="index" :to="item.url"  >
+      <slot>
+         <router-link class="foot-item" active-class="active" v-for="(item,index) in tabList" :key="index" :to="item.url"  >
           <span :class="pathname===item.url? 'itemIcon activeIcon' :'itemIcon'" >
               <i :class=" item.icon" ></i>
           </span>
           <span class="itemName" >{{item.name}}</span>
         </router-link>
+      </slot>
+       
     </footer>
   </div>
 </template>

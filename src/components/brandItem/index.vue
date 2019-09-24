@@ -1,10 +1,10 @@
 <template>
     <div class="brand-wrap">
-                   <a class="brand-item"   v-for="(item) in brandList" :key="item.id" :href="'/brandDetail/'+item.id" >
+                   <div class="brand-item"   v-for="(item) in brandList" :key="item.id" @click="()=>jumpedDetail(item.id)"  >
                       <b class="brand-name" >{{item.name}}</b>
                       <span class="brand-price" >{{item.floor_price}}元起</span>
                       <img v-lazy="item.new_pic_url" >
-                   </a>
+                   </div>
              </div>
 </template>
 <script>
@@ -19,7 +19,11 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    jumpedDetail(id){
+      this.$router.push('/brandDetail/'+id)
+    }
+  },
   created() {},
   mounted() {}
 };
@@ -29,11 +33,14 @@ export default {
           width: 100%;
           display: flex;
           flex-wrap: wrap;
+          justify-content: space-around;
           .brand-item{
-            width: 50%;
+            width: 49%;
             height: 1.1rem;
             position: relative;
             color: black;
+            margin-bottom: 1px;
+            background: white;
             img{
               width: 100%;
               height: 100%;

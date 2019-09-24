@@ -3,12 +3,7 @@
     <div class="main" ref="main" >
       <div class="content"  >
         <div class="swiper-wrap">
-          <swiper :options="swiperOption">
-            <swiper-slide v-for="(item) in banner" :key="item.id">
-              <img style="width:100%;height:100%" v-lazy="item.image_url"  />
-            </swiper-slide>
-            <div class="swiper-pagination"></div>
-          </swiper>
+          <v-swiper :banner="banner" type="banner" ></v-swiper>
         </div>
         <v-channelItem :channel="channel"></v-channelItem>
         <div class="brandBox">
@@ -34,11 +29,7 @@
             <b>专题精选</b>
           </div>
           <div class="topic-wrap">
-            <swiper :options="swiperOption">
-              <swiper-slide  v-for="(item) in topicList" :key="item.id">
-                <TopicItem style="width:330px; margin:0 auto" :isShow=true :item="item"></TopicItem>
-              </swiper-slide>
-            </swiper>
+            <v-swiper :banner="topicList" type="topicList"  ></v-swiper>
           </div>
           <v-cateGory  :cateGoryList="cateList"  ></v-cateGory>
         </div>
@@ -48,31 +39,19 @@
   </div>
 </template>
 <script>
-import "@/assets/swiper/swiper.css";
+
 import { mapState, mapMutations, mapActions } from "vuex";
-import { swiper, swiperSlide } from "vue-awesome-swiper";
+
 import BScroll from "better-scroll";
 export default {
   props: {},
   components: {
-    swiper,
-    swiperSlide
+  
   },
   data() {
     return {
       page:0,
-      swiperOption: {
-        autoplay: {
-          delay: 1000,
-          stopOnLastSlide: false,
-          waitForTransition: true
-        },
-        loop: true,
-        pagination: {
-          el: ".swiper-pagination",
-          type: "bullets"
-        }
-      }
+    
     };
   },
   computed: {

@@ -1,10 +1,10 @@
 <template>
      <div class="newGoods-wrap">
-                  <a class="newGoods-item" v-for="(item) in newGoodsList" :key="item.id" :href="'/goods/'+item.id">
-                      <img v-lazy="item.list_pic_url" >
+                  <div class="newGoods-item" v-for="(item) in newGoodsList" :key="item.id"   @click="()=>{jumpedDetail(item.id)}" >  
+                      <img v-lazy="item.list_pic_url"  >
                       <div class="newGoods-name">{{item.name}}</div>
                       <div class="newGoods-price">￥ {{item.retail_price}}</div>
-                  </a>
+                  </div>
              </div>
 </template>
 <script>
@@ -19,7 +19,11 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+      jumpedDetail(id){
+         this.$router.push('/goods/'+id)
+      }
+  },
   created() {},
   mounted() {}
 };
@@ -30,25 +34,19 @@ export default {
   justify-content: center;
   align-items: center;
 }
- .newGoodsBox{
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          .newGoods-title{
-              width: 100%;
-              height: 0.5rem;
-              font-size: 16px;
-              @extend %juzhong;
-          }
+ 
           .newGoods-wrap{
               width: 100%;
               display: flex;
               flex-wrap: wrap;
+              justify-content: space-around;
               .newGoods-item{
-                  width: 50%;
+                  width: 49%;
                   height: 2rem;
                   display: flex;
                   flex-direction: column;
+                  background: white;
+                  margin-bottom: 1px;
                   img{
                       width: 100%;
                       height: 1.4rem;
@@ -65,5 +63,5 @@ export default {
                   }
               }
           }
-      }
+      
 </style>

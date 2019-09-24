@@ -21,12 +21,7 @@ const routes = [
     isGuard:true,
     component: () => import("../views/home/goods.vue")
   },
-  {
-    path: '/categorys/:id',
-    name: 'categorys',
-    isGuard:true,
-    component: () => import("../views/home/categorys.vue")
-  },
+ 
   {
     path: '/topic',
     name: 'topic',
@@ -50,6 +45,12 @@ const routes = [
     name: 'goodsSearch',
     isGuard:true,
     component: () => import("../views/catelog/goodsSearch.vue")
+  },
+  {
+    path: '/categorys/:id',
+    name: 'categorys',
+    isGuard:true,
+    component: () => import("../views/catelog/categorys.vue")
   },
   {
     path: '/cart',
