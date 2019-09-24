@@ -1,0 +1,38 @@
+<template>
+  <div class="container">
+    <v-header>
+      <div class="header-back" @click="()=>{this.$router.history.go(-1)}">&lt;</div>
+      <div class="header-content">
+        <div class="search-input">
+          <span>奇趣分类</span>
+        </div>
+      </div>
+      <div class="header-right"></div>
+    </v-header>
+    <div class="main">
+      <v-nav :list="currentNavList" :type="'abeam'"></v-nav>categorys
+    </div>
+  </div>
+</template>
+<script>
+import { mapGetters,mapActions,mapMutations } from "vuex";
+export default {
+  props: {},
+  components: {},
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapGetters("catelog", ["currentNavList"])
+  },
+  methods: {
+    ...mapMutations("catelog",["setcurrentPage"])
+  },
+  created() {
+    this.setcurrentPage("caterorys")
+  },
+  mounted() {}
+};
+</script>
+<style scoped lang="">
+</style>

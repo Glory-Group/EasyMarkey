@@ -42,7 +42,7 @@ body {
   }
   .header-content{
     flex:8;
-    text-align: center;
+     @extend %juzhong;
   }
   .header-right{
     flex:1

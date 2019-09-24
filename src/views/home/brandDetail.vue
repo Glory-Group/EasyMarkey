@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <v-header>
-      <div class="header-back" @click="()=>{this.$router.history.push('/topic')}">&lt;</div>
+      <div class="header-back" @click="()=>{this.$router.history.push('/home')}">&lt;</div>
       <div class="header-content">{{brandDetail.name}}</div>
       <div class="header-right"></div>
     </v-header>
