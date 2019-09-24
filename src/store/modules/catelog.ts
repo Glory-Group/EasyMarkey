@@ -1,4 +1,4 @@
-import { requestInitCatelog, requestChangeTab } from "@/service/index"
+import { requestInitCatelog, requestChangeTab, requestGoodsSearch, requestInitSearch } from "@/service/index"
 
 export default {
     namespaced: true,
@@ -9,6 +9,10 @@ export default {
         currentNavList: [],//nav组件使用的列表
         currentPage: "catelog",//目前使用导航的页面
         currentId: 0,//当前页面id
+        searchData: {},//goodsSearch页面的数据
+        defaultKeyword: {},
+        historyKeywordList: {},
+        hotKeywordList: {}
     },
     mutations: {
         initData(state: any, payload: any) {
@@ -30,6 +34,13 @@ export default {
         },
         setcurrentPage(state: any, payload: any) {
             state.currentPage = payload
+        },
+        setInitSearch(state: any, payload: any) {
+            let { defaultKeyword, historyKeywordList, hotKeywordList } = payload
+            state.searchData = payload
+            state.defaultKeyword = defaultKeyword
+            state.historyKeywordList = historyKeywordList
+            state.hotKeywordList = hotKeywordList
         }
     },
     actions: {
@@ -52,11 +63,30 @@ export default {
                 return result;
             }
             return "aaa"
+        },
+        async goodsSearchAction(context: any, payload: any) {
+            let { commit, state } = context
+            let result = await requestGoodsSearch(payload)
+            console.log(result, "search")
+            return result;
+        },
+        async initSearchAction(context: any, payload: any) {
+            let { commit, state } = context
+            let result: any = await requestInitSearch()
+            console.log(result, "initsearch")
+            if (result.errno === 0) {
+                commit("setInitSearch", result.data)
+            }
+            return result;
         }
     },
     getters: {
         categoryList: (state: any) => state.categoryList,
         currentCategory: (state: any) => state.currentCategory,
         currentNavList: (state: any) => state.currentNavList,
+        searchData: (state: any) => state.searchData,
+        defaultKeyword: (state: any) => state.defaultKeyword,
+        historyKeywordList: (state: any) => state.historyKeywordList,
+        hotKeywordList: (state: any) => state.hotKeywordList
     }
 }

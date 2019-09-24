@@ -56,7 +56,6 @@ export default {
   created() {
     this.initCatelogAction();
     this.setcurrentPage("catelog")
-    console.log(this.currentCategory,"allsaslalsals")
   },
   mounted() {}
 };
