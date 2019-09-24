@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       page: 1,
-      uploadTitle: "上拉加载"
+      uploadTitle: "上拉加载",
+      mouseWheel:true,
     };
   },
   computed: {

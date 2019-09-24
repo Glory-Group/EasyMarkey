@@ -5,6 +5,7 @@ import BrandItem from "../brandItem/index.vue"
 import NewGoodsItem from "../newGoodsItem/index.vue"
 import HotGoodsItem from "../hotGoodsItem/index.vue"
 import vheader from "../header/index.vue"
+import commentITem from "../commentItem/index.vue"
 export default{
     install(Vue:any){
         Vue.component("v-footer",vfooter)
@@ -14,5 +15,6 @@ export default{
         Vue.component("v-newGoodsItem",NewGoodsItem)
         Vue.component("v-hotGoodsItem",HotGoodsItem)
         Vue.component("v-header",vheader)
+        Vue.component("v-commentItem",commentITem)
     }
 }   

@@ -6,3 +6,6 @@ export let requestTopicList=(params:any)=>{
 export let requestTopicDetail=(params:any)=>{
     return request.get("/topic/detail",{params})
 }
+export let requestRelatedTopic=(params:any)=>{
+    return request.get("/topic/related",{params})
+}
