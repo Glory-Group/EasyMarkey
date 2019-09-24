@@ -46,69 +46,9 @@
           @extend %juzhong;
           font-size: 16px;
         }
-        .brand-wrap{
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          .brand-item{
-            width: 50%;
-            height: 1.1rem;
-            position: relative;
-            color: black;
-            img{
-              width: 100%;
-              height: 100%;
-            }
-            .brand-name{
-              position: absolute;
-              top:0.05rem;
-              left:0.1rem
-            }
-            .brand-price{
-              position: absolute;
-              top:0.25rem;
-              left:0.1rem;
-              color: #a9a9a9;
-            }
-          }
-        }
+       
       }
-      .newGoodsBox{
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          .newGoods-title{
-              width: 100%;
-              height: 0.5rem;
-              font-size: 16px;
-              @extend %juzhong;
-          }
-          .newGoods-wrap{
-              width: 100%;
-              display: flex;
-              flex-wrap: wrap;
-              .newGoods-item{
-                  width: 50%;
-                  height: 2rem;
-                  display: flex;
-                  flex-direction: column;
-                  img{
-                      width: 100%;
-                      height: 1.4rem;
-                  }
-                  .newGoods-name{
-                      flex:1;
-                      color: black;
-                      @extend %juzhong;
-                  }
-                  .newGoods-price{
-                      flex:1;
-                      @extend %juzhong;
-                      color: #8b0000;
-                  }
-              }
-          }
-      }
+     
       .hotGoodsBox{
           width: 100%;
           display: flex;

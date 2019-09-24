@@ -5,9 +5,8 @@
         <div class="swiper-wrap">
           <swiper :options="swiperOption">
             <swiper-slide v-for="(item) in banner" :key="item.id">
-              <img style="width:100%;height:100%" v-lazy="item.image_url" :alt="item.name" />
+              <img style="width:100%;height:100%" v-lazy="item.image_url"  />
             </swiper-slide>
-            <div class="swiper-scrollbar"></div>
             <div class="swiper-pagination"></div>
           </swiper>
         </div>
@@ -37,12 +36,11 @@
           <div class="topic-wrap">
             <swiper :options="swiperOption">
               <swiper-slide  v-for="(item) in topicList" :key="item.id">
-                <TopicItem style="width:318px; margin:0 auto" :item="item"></TopicItem>
+                <TopicItem style="width:330px; margin:0 auto" :item="item"></TopicItem>
               </swiper-slide>
-              <div class="swiper-scrollbar"></div>
             </swiper>
           </div>
-          <v-cateGory  :cateGoryList="cateList" ></v-cateGory>
+          <v-cateGory  :cateGoryList="cateList"  ></v-cateGory>
         </div>
       </div>
     </div>

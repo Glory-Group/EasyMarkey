@@ -25,5 +25,30 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-
+ .brand-wrap{
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          .brand-item{
+            width: 50%;
+            height: 1.1rem;
+            position: relative;
+            color: black;
+            img{
+              width: 100%;
+              height: 100%;
+            }
+            .brand-name{
+              position: absolute;
+              top:0.05rem;
+              left:0.1rem
+            }
+            .brand-price{
+              position: absolute;
+              top:0.25rem;
+              left:0.1rem;
+              color: #a9a9a9;
+            }
+          }
+        }
 </style>

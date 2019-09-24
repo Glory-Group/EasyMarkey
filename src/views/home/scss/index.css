@@ -1,4 +1,4 @@
-.content .channelBox .channel-item, .content .channelBox .channel-item span, .content .brandBox .brand-title, .content .newGoodsBox .newGoods-title, .content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-name, .content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-price, .content .hotGoodsBox .hotGoods-title, .content .topicBox .topic-title {
+.content .channelBox .channel-item, .content .channelBox .channel-item span, .content .brandBox .brand-title, .content .hotGoodsBox .hotGoods-title, .content .topicBox .topic-title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,77 +53,6 @@
   width: 100%;
   height: 0.5rem;
   font-size: 16px;
-}
-
-.content .brandBox .brand-wrap {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.content .brandBox .brand-wrap .brand-item {
-  width: 50%;
-  height: 1.1rem;
-  position: relative;
-  color: black;
-}
-
-.content .brandBox .brand-wrap .brand-item img {
-  width: 100%;
-  height: 100%;
-}
-
-.content .brandBox .brand-wrap .brand-item .brand-name {
-  position: absolute;
-  top: 0.05rem;
-  left: 0.1rem;
-}
-
-.content .brandBox .brand-wrap .brand-item .brand-price {
-  position: absolute;
-  top: 0.25rem;
-  left: 0.1rem;
-  color: #a9a9a9;
-}
-
-.content .newGoodsBox {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.content .newGoodsBox .newGoods-title {
-  width: 100%;
-  height: 0.5rem;
-  font-size: 16px;
-}
-
-.content .newGoodsBox .newGoods-wrap {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.content .newGoodsBox .newGoods-wrap .newGoods-item {
-  width: 50%;
-  height: 2rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.content .newGoodsBox .newGoods-wrap .newGoods-item img {
-  width: 100%;
-  height: 1.4rem;
-}
-
-.content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-name {
-  flex: 1;
-  color: black;
-}
-
-.content .newGoodsBox .newGoods-wrap .newGoods-item .newGoods-price {
-  flex: 1;
-  color: #8b0000;
 }
 
 .content .hotGoodsBox {
