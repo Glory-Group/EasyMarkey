@@ -4,7 +4,7 @@ import {getToken} from "./saveToken";
 
 
 const instance = axios.create({
-    baseURL: 'http://169.254.192.12:8888',
+    baseURL: 'http://localhost:8888',
     timeout: 1000,
      headers: {'authorization': getToken()}
 });
