@@ -40,6 +40,8 @@ export default {
         setTimeout(() => {
           this.$router.history.go(-1);
         }, 500);
+      }else{
+        alert(result.data)
       }
     }
   },

@@ -36,7 +36,7 @@
           <div class="topic-wrap">
             <swiper :options="swiperOption">
               <swiper-slide  v-for="(item) in topicList" :key="item.id">
-                <TopicItem style="width:330px; margin:0 auto" :item="item"></TopicItem>
+                <TopicItem style="width:330px; margin:0 auto" :isShow=true :item="item"></TopicItem>
               </swiper-slide>
             </swiper>
           </div>
