@@ -1,16 +1,12 @@
 <template>
   <div class="container">
-    <v-header>{{this.topicDetail.title&&this.topicDetail.title}}</v-header>
+    <v-header :backPath="backPath">
+      <div class="header-back" @click="()=>{this.$router.history.push('/topic')}">&lt;</div>
+      <div class="header-content">{{this.topicDetail.title&&this.topicDetail.title}}</div>
+      <div class="header-right"></div>
+    </v-header>
     <div class="main">
-      <div class="topicDetailImg">
-        <img src="//yanxuan.nosdn.127.net/75c55a13fde5eb2bc2dd6813b4c565cc.jpg" />
-        <img src="//yanxuan.nosdn.127.net/e27e1de2b271a28a21c10213b9df7e95.jpg" />
-        <img src="//yanxuan.nosdn.127.net/9d413d1d28f753cb19096b533d53418d.jpg" />
-        <img src="//yanxuan.nosdn.127.net/64b0f2f350969e9818a3b6c43c217325.jpg" />
-        <img src="//yanxuan.nosdn.127.net/a668e6ae7f1fa45565c1eac221787570.jpg" />
-        <img src="//yanxuan.nosdn.127.net/0d4004e19728f2707f08f4be79bbc774.jpg" />
-        <img src="//yanxuan.nosdn.127.net/79ee021bbe97de7ecda691de6787241f.jpg" />
-      </div>
+      <div class="topicDetailImg" v-html="topicDetailContent"></div>
       <div class="comment-wrap">
         <div class="comment-head">
           <span class="comment-title">精选留言</span>
@@ -26,19 +22,21 @@
             </div>
             <div>等你来留言</div>
           </div>
-          <v-commentItem
-            v-for="item in topicComment.length&&topicComment"
-            :key="item.id"
-            :item="item"
-          ></v-commentItem>
+          <v-commentItem v-for="item in topicComment.slice(0,5)" :key="item.id" :item="item"></v-commentItem>
+          <div v-if="topicComment.length>5" class="more-comment"> 
+              <span>查看更多评论</span>
+          </div>
         </div>
       </div>
       <div class="relate-topic">
         <div class="relate-topic-title">推荐专题</div>
-        <div class="relate-topic-item" v-for="item in relatedTopic" :key="item.id">
-          <img v-lazy="item.scene_pic_url" alt="imgLazyLoad" />
-          <div class="relate-topic-subtitle">{{item.title}}</div>
-        </div>
+        <TopicItem
+          class="relate-topic-item"
+          v-for="item in relatedTopic"
+          :key="item.id"
+          :item="item"
+          :isShow="false"
+        ></TopicItem>
       </div>
     </div>
     <v-footer></v-footer>
@@ -50,10 +48,19 @@ export default {
   props: {},
   components: {},
   data() {
-    return {};
+    return {
+      backPath: "/topic",
+      topicCommentList: []
+    };
   },
   computed: {
-    ...mapGetters("topic", ["topicDetail", "topicComment", "relatedTopic"])
+    ...mapGetters("topic", [
+      "topicDetail",
+      "topicComment",
+      "relatedTopic",
+      "topicId",
+      "topicDetailContent"
+    ])
   },
   methods: {
     ...mapActions("topic", [
@@ -62,12 +69,13 @@ export default {
       "relatedTopicAction"
     ]),
     addComment() {
-      alert(1);
+      this.$router.push(`/topicCommentWrite/${this.topicId}`);
     }
   },
   created() {
     this.getCommentAction();
     this.relatedTopicAction();
+    console.log(this.topicComment, "lalslaslalsla");
   },
   mounted() {
     let { id } = this.$route.params;
@@ -75,7 +83,7 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 %juzhong {
   display: flex;
   justify-content: center;
@@ -85,9 +93,9 @@ export default {
   background-color: #f5f5f9;
 }
 .topicDetailImg {
-  width: 100%;
+  width: 3.75rem;
   img {
-    width: 100%;
+    width: 3.75rem;
   }
 }
 .comment-wrap {
@@ -149,5 +157,10 @@ export default {
       @extend %juzhong;
     }
   }
+}
+.more-comment{
+  height: 0.4rem;
+  line-height: 0.4rem;
+  text-align: center;
 }
 </style>
