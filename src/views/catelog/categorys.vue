@@ -23,12 +23,19 @@ export default {
   data() {
     return {};
   },
-  computed: {},
-  methods: {},
-  created() {},
-  mounted() {
-
-  }
+  computed: {
+    //state
+    ...mapGetters("catelog", ["currentNavList"])
+  },
+  methods: {
+    //methods
+    ...mapMutations("catelog",["setcurrentPage"])
+  },
+  created() {
+    //created
+    this.setcurrentPage("caterorys")
+  },
+  mounted() {}
 };
 </script>
 <style scoped lang="">
