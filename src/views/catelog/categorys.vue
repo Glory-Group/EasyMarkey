@@ -24,12 +24,15 @@ export default {
     return {};
   },
   computed: {
+    //state
     ...mapGetters("catelog", ["currentNavList"])
   },
   methods: {
+    //methods
     ...mapMutations("catelog",["setcurrentPage"])
   },
   created() {
+    //created
     this.setcurrentPage("caterorys")
   },
   mounted() {}
