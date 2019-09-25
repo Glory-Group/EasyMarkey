@@ -21,8 +21,10 @@ export default {
   computed: {},
   methods: {
     ...mapMutations("catelog", ["setSubNav"]),
+    ...mapActions("catelog",["changeTabAction"]),
     jumpCateGorys() {
       this.setSubNav();
+       this.changeTabAction({id:this.item.id})
       this.$router.push(`/categorys/${this.item.id}`);
     }
   },

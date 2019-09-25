@@ -25,11 +25,11 @@ export default {
   computed: {},
   methods: {
     jumpedDetail(id) {
-      if (this.$router.history.current.path.includes("/goods")) {
+      if (this.$router.history.current.path.includes("/goods")&&this.$router.history.current.path!=="/goodsSearch") {
         this.$router.push("/goods/" + id);
         this.$router.go(0);
       } else {
-        this.$router.replace("/goods/" + id);
+        this.$router.push("/goods/" + id);
       }
     }
   },
@@ -50,8 +50,13 @@ export default {
   display: flex;
   flex-direction: column;
   background: white;
+<<<<<<< HEAD
   margin-bottom: 1px;
   margin: 0 1px;
+=======
+  margin: 0 1px 1px 1px;
+
+>>>>>>> bb02ec087be6979658786d80f7a88f68b4806322
   img {
     width: 100%;
     height: 1.4rem;

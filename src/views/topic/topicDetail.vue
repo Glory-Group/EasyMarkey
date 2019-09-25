@@ -10,7 +10,7 @@
       <div class="comment-wrap">
         <div class="comment-head">
           <span class="comment-title">精选留言</span>
-          <span class="comment-add" @click="addComment">＋</span>
+          <span class="comment-add icon-icon-test iconfont" @click="addComment">+</span>
         </div>
         <div class="comment-content">
           <div v-show="topicComment.length===0" class="wait-comment">
@@ -83,6 +83,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import url("//at.alicdn.com/t/font_1434233_kyu83air15r.css");
 %juzhong {
   display: flex;
   justify-content: center;

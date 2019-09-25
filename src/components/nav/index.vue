@@ -1,6 +1,6 @@
 <template>
   <nav :class="type==='column'?'column-nav':'abeam-nav'">
-    <div class="nav-content">
+    <div class="nav-content" :style="currentIndex>2&&'transition:-10px'">
       <div
         :class="currentIndex===index?'nav-item active':'nav-item'"
         v-for="(item,index) in currentNavList"
@@ -24,22 +24,23 @@ export default {
   components: {},
   data() {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      navList:[]
     };
   },
   computed: {
-    ...mapGetters("catelog",["currentNavList"])
+    ...mapGetters("catelog",["currentNavList","currentPage"])
   },
   methods: {
-    ...mapMutations("catelog", ["setcurrentIndex"]),
     ...mapActions("catelog",["changeTabAction"]),
     changeTab(item, index) {
       this.currentIndex = index;
-      this.setcurrentIndex(index);
       this.changeTabAction({id:item.id})
     }
   },
-  created() {},
+  created() {
+    this.navList=JSON.parse(JSON.stringify(this.currentNavList))
+  },
   mounted() {}
 };
 </script>
