@@ -9,21 +9,44 @@
             type="text"
             :placeholder="defaultKeyword.keyword"
             @keyup.enter="(e)=>searchGoods(e)"
+            v-model="keyword"
           />
         </div>
       </div>
       <div class="header-right">
-        <span>取消</span>
+        <span @click="cancelSearch">取消</span>
       </div>
     </v-header>
     <div class="main">
-      <div class="main-content">
-        <div class="search-history">
-          <span v-for="(item,index) in historyKeywordList" :key="index" class="search-item">{{item}}</span>
+      <div class="main-content" v-if="!isSearch">
+        <div class="search-history" v-if="isHistory&&historyKeywordList.length">
+          <div class="search-history-content">
+            <div class="search-history-title">
+              <span>历史记录</span>
+              <span @click="clearHistory">清除</span>
+            </div>
+            <v-searchItem
+              v-for="(item,index) in historyKeywordList"
+              :key="index"
+              :item="item"
+              :changeKeyword="changeKeyword"
+            ></v-searchItem>
+          </div>
         </div>
         <div class="search-hot">
-          <span v-for="(item,index) in hotKeywordList" :key="index" class="search-item">{{item.keyword}}</span>
+          <div class="search-hot-content">
+            <div class="search-hot-title">热门搜索</div>
+            <v-searchItem
+              v-for="(item,index) in hotKeywordList"
+              :key="index"
+              :item="item.keyword"
+              :changeKeyword="changeKeyword"
+            ></v-searchItem>
+          </div>
         </div>
+      </div>
+      <div class="main-content" v-if="isSearch">
+        <div v-for="item in goodsList.data" :key="item.id">{{item.name}}</div>
       </div>
     </div>
     <v-footer></v-footer>
@@ -36,22 +59,46 @@ export default {
   components: {},
   data() {
     return {
-      // defaultKeyword:this.searchData.defaultKeyword,
-      // historyKeywordList,
-      // hotKeywordList
+      keyword: "",
+      isSearch: false,
+      isHistory: true
     };
   },
   computed: {
     ...mapGetters("catelog", [
       "defaultKeyword",
       "historyKeywordList",
-      "hotKeywordList"
+      "hotKeywordList",
+      "goodsList"
     ])
   },
   methods: {
-    ...mapActions("catelog", ["goodsSearchAction", "initSearchAction"]),
+    ...mapActions("catelog", [
+      "goodsSearchAction",
+      "initSearchAction",
+      "clearHistoryAction"
+    ]),
     searchGoods(e) {
-      this.goodsSearchAction({ keyword: e.target.value });
+      this.goodsSearchAction({ keyword: this.keyword });
+      this.isSearch = true;
+    },
+    changeKeyword(item) {
+      this.keyword = item;
+      this.isSearch = true;
+    },
+    cancelSearch() {
+      this.isSearch = false;
+      this.keyword = this.defaultKeyword.keyword;
+      this.$router.history.go(0);
+    },
+    async clearHistory() {
+      let result = await this.clearHistoryAction();
+      if (result.errno === 0) {
+        setTimeout(() => {
+          this.isHistory = false;
+          alert("清除成功")
+        },100);
+      }
     }
   },
   created() {
@@ -82,11 +129,43 @@ export default {
     font-size: 16px;
   }
 }
-.search-item{
-  display: inline-block;
-  padding: .08rem .12rem;
-  border: 1px solid #ccc;
-  border-radius: .4rem;
-  margin: .03rem;
+.search-history {
+  width: 100%;
+  background: #fff;
+  margin: 0.05rem 0;
+  padding: 0.1rem;
+  padding-top: 0;
+}
+.search-history-content {
+  width: 3.55rem;
+  margin-left: 0.1rem;
+}
+.search-history-title {
+  height: 0.35rem;
+  line-height: 0.35rem;
+  font-size: 16px;
+  display: flex;
+  span:first-of-type {
+    flex: 8;
+  }
+  span:nth-of-type(2) {
+    flex: 2;
+  }
+}
+.search-hot {
+  width: 100%;
+  background: #fff;
+  margin: 0.05rem 0;
+  padding: 0.1rem;
+  padding-top: 0;
+}
+.search-hot-content {
+  width: 3.55rem;
+  margin-left: 0.1rem;
+}
+.search-hot-title {
+  height: 0.35rem;
+  line-height: 0.35rem;
+  font-size: 16px;
 }
 </style>

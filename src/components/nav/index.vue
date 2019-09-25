@@ -3,7 +3,7 @@
     <div class="nav-content">
       <div
         :class="currentIndex===index?'nav-item active':'nav-item'"
-        v-for="(item,index) in list"
+        v-for="(item,index) in currentNavList"
         :key="item.id"
         @click="()=>changeTab(item,index)"
       >{{item.name}}</div>
@@ -11,7 +11,7 @@
   </nav>
 </template>
 <script>
-import { mapMutations,mapActions } from "vuex";
+import { mapMutations,mapActions,mapGetters } from "vuex";
 export default {
   props: {
     list: {
@@ -27,7 +27,9 @@ export default {
       currentIndex: 0
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters("catelog",["currentNavList"])
+  },
   methods: {
     ...mapMutations("catelog", ["setcurrentIndex"]),
     ...mapActions("catelog",["changeTabAction"]),

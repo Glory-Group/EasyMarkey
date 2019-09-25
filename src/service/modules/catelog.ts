@@ -15,3 +15,7 @@ export let requestGoodsSearch=(params:any)=>{
 export let requestInitSearch=()=>{
     return request.get("/search/index")
 }
+/// 清除商品查询的历史记录
+export let requestClearHistory=()=>{
+    return request.get("/search/clearhistory")
+}
