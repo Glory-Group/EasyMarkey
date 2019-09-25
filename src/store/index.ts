@@ -4,6 +4,7 @@ import home from "./modules/home"
 import login from "./modules/login"
 import topic from "./modules/topic"
 import goods from "./modules/goods"
+import catelog from "./modules/catelog"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     login,
     topic,
     home,
-    goods
+    goods,
+    catelog
   }
 })

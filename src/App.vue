@@ -32,9 +32,9 @@ body {
 }
 .header {
   width: 100%;
-  height: 0.44rem;
+  height: 0.5rem;
   border-bottom: 1px solid #ccc;
-  line-height: .44rem;
+  line-height: .5rem;
   display: flex;
   .header-back{
     flex:1;
@@ -42,7 +42,7 @@ body {
   }
   .header-content{
     flex:8;
-    text-align: center;
+     @extend %juzhong;
   }
   .header-right{
     flex:1

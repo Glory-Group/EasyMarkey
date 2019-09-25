@@ -75,7 +75,6 @@ export default {
   created() {
     this.getCommentAction();
     this.relatedTopicAction();
-    console.log(this.topicComment, "lalslaslalsla");
   },
   mounted() {
     let { id } = this.$route.params;
