@@ -7,10 +7,13 @@
     </v-header>
     <div class="main">
       <div class="content">
-        <div class="swiper-wrap" :style="goodsDetail.gallery&&goodsDetail.gallery.length?'350px':'100px'" >
+        <div
+          class="swiper-wrap"
+          :style="goodsDetail.gallery&&goodsDetail.gallery.length?'350px':'100px'"
+        >
           <v-swiper
-            :banner="goodsDetail.gallery" 
-             type="goodsBanner"
+            :banner="goodsDetail.gallery"
+            type="goodsBanner"
             :vHeight="goodsDetail.gallery&&goodsDetail.gallery.length?'350px':'100px'"
           ></v-swiper>
         </div>
@@ -42,7 +45,7 @@
         <div class="goodsSize">
           <div></div>
           <div>x 0</div>
-          <div>
+          <div @click="showMask()">
             选择规格
             <span>></span>
           </div>
@@ -63,7 +66,11 @@
           <div class="goodsTitleLine">
             <span>—— 常见问题 ——</span>
           </div>
-          <div class="goodsProblme" v-for="item in goodsDetail.issue&&goodsDetail.issue" :key="item.id">
+          <div
+            class="goodsProblme"
+            v-for="item in goodsDetail.issue&&goodsDetail.issue"
+            :key="item.id"
+          >
             <div class="problme">
               <span>√</span>
               {{item.question}}
@@ -76,7 +83,7 @@
             <span>—— 大家都在看 ——</span>
           </div>
           <div class="newGoods-wrap">
-            <v-goodsItem v-for="item in goodsDetailList" :key="item.id" :item="item" ></v-goodsItem>
+            <v-goodsItem v-for="item in goodsDetailList" :key="item.id" :item="item"></v-goodsItem>
           </div>
         </div>
       </div>
@@ -84,40 +91,53 @@
     <v-footer>
       <div class="goodsFoot">
         <div class="isLike">收藏</div>
-        <div class="cartNum">
+        <div class="cartNum" @click="()=>this.$router.push('/cart')" >
           <i class="iconfont icon-weibiaoti--"></i>
-          <span>0</span>
+          <span>{{carCount}}</span>
         </div>
-        <div class="addCart">
-            加入购物车
-        </div>
-        <div class="payGoods">
-            立即购买
-        </div>
+        <div class="addCart" @click="addCar()">加入购物车</div>
+        <div class="payGoods" @click="payNow()">立即购买</div>
       </div>
     </v-footer>
 
-    <div v-show="isSHow" class="dialog">
+    <div v-show="isShow" class="dialog">
       <div class="mask">
-         <div class="top">
-           <div class="msg">
-             <div class="left"></div>
-             <div class="mid"></div>
-             <div class="right"></div>
-           </div>
-           <div class="tit"></div>
-           <div class="num">
-             <span>-</span>
-             <span>0</span>
-             <span>+</span>
-           </div>
-         </div>
-         <div class="btm">
-           <span>加入购物车</span><span>立即下单</span>
-         </div>
+        <div class="top">
+          <div class="msg">
+            <div class="left">
+              <img :src="goodsDetail.info&&goodsDetail.info.list_pic_url" />
+            </div>
+            <div class="mid">
+              <span>
+                单价
+                <b>￥{{goodsDetail.info&&goodsDetail.info.retail_price}}</b>
+              </span>
+              <span>
+                库存
+                <b>{{goodsDetail.info&&goodsDetail.info.goods_number}}</b>
+              </span>
+              <span>已选择</span>
+            </div>
+            <div class="right">
+              <i
+                class="iconfont icon-cuowuguanbiquxiao-xianxingfangkuang"
+                @click="()=>{this.isShow=false}"
+              ></i>
+            </div>
+          </div>
+          <div class="tit">数量</div>
+          <div class="num">
+            <span @click="()=>changeNum(false)">-</span>
+            <span>{{this.number}}</span>
+            <span @click="()=>changeNum(true)">+</span>
+          </div>
+        </div>
+        <div class="btm">
+          <span class="addCar" @click="addCar()">加入购物车</span>
+          <span class="payNow" @click="payNow()">立即下单</span>
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -128,26 +148,71 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      isSHow:false
+      isShow: false,
+      number: 0
     };
   },
   computed: {
-    ...mapState("goods", ["goodsDetail", "goodsDetailList"])
+    ...mapState("goods", ["goodsDetail", "goodsDetailList"]),
+    ...mapState("shopCar", ["carCount"])
   },
   methods: {
-    ...mapActions("goods", ["getGoodsDetailAction", "getGoodsDetailListAction"])
+    ...mapActions("goods", [
+      "getGoodsDetailAction",
+      "getGoodsDetailListAction"
+    ]),
+    ...mapActions("shopCar", ["getCarCountAction", "getaddCarAction"]),
+    showMask() {
+      this.isShow = true;
+    },
+    changeNum(flag) {
+      if (flag) {
+        this.number = this.number + 1;
+      } else {
+        if (this.number > 0) {
+          this.number = this.number - 1;
+        }
+      }
+    },
+    //添加购物车
+    async addCar() {
+      if (this.isShow) {
+        let { goods_id, id } =
+          this.goodsDetail && this.goodsDetail.productList[0];
+        // console.log(this.goodsDetailproductList)
+        let result = await this.getaddCarAction({
+          goodsId: this.id,
+          number: this.number,
+          productId: id
+        });
+        if (result.errno === 0) {
+          alert("添加成功");
+          this.isShow=false;
+          this.number=0
+        } else {
+          alert("添加失败");
+        }
+      } else {
+        this.isShow = true;
+      }
+    },
+
+    //立即下单
+    payNow() {
+      alert("下单功能正在完善。");
+      this.isShow = false;
+    }
   },
   created() {
-     this.getGoodsDetailAction({ id: this.id });
-     this.getGoodsDetailListAction({ id: this.id });
+    this.getGoodsDetailAction({ id: this.id });
+    this.getGoodsDetailListAction({ id: this.id });
+    this.getCarCountAction();
   },
-  mounted() {
-   
-  }
+  mounted() {}
 };
 </script>
 <style  lang="scss">
-@import url("//at.alicdn.com/t/font_1431758_oriotd1fx9h.css");
+@import url("//at.alicdn.com/t/font_1431758_a7o4o34eufr.css");
 %juzhong {
   display: flex;
   justify-content: center;
@@ -157,6 +222,98 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+.dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  .mask {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    bottom: 0;
+    .top {
+      width: 100%;
+      height: 2.12rem;
+      background: white;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      .msg {
+        width: 100%;
+        height: 1rem;
+        display: flex;
+        .left {
+          flex: 3;
+          @extend %juzhong;
+          img {
+            width: 1.3rem;
+            height: 1.3rem;
+          }
+        }
+        .mid {
+          flex: 5;
+          display: flex;
+          flex-direction: column;
+          span {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            color: #888888;
+            font-size: 15px;
+            b {
+              color: red;
+            }
+          }
+        }
+        .right {
+          flex: 2;
+          color: #ff9500;
+          text-align: right;
+        }
+      }
+      .tit {
+        width: 100%;
+        height: 0.3rem;
+      }
+      .num {
+        width: 100%;
+        height: 0.4rem;
+        display: flex;
+        align-items: center;
+        span {
+          width: 0.6rem;
+          height: 0.4rem;
+          border: 1px solid #ededed;
+          @extend %juzhong;
+        }
+      }
+    }
+    .btm {
+      width: 100%;
+      height: 0.5rem;
+      display: flex;
+      .addCar {
+        flex: 1;
+        @extend %juzhong;
+        background: linear-gradient(90deg, #ff9500, #ff5e3a);
+        color: white;
+      }
+      .payNow {
+        flex: 1;
+        @extend %juzhong;
+        background: linear-gradient(90deg, #1d62f0, #19d5fd);
+        color: white;
+      }
+    }
+  }
 }
 .serviceList {
   width: 100%;
@@ -260,7 +417,7 @@ export default {
       display: flex;
       background: #ccc;
       margin: 5px 0;
-      padding:10px;
+      padding: 10px;
       span {
         &:nth-of-type(1) {
           flex: 4;
@@ -344,45 +501,45 @@ export default {
   }
 }
 
-.goodsFoot{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    .isLike{
-        flex:2;
-         @extend %juzhong;
+.goodsFoot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  .isLike {
+    flex: 2;
+    @extend %juzhong;
+  }
+  .cartNum {
+    flex: 2;
+    @extend %juzhong;
+    position: relative;
+    i {
+      font-size: 16px;
     }
-    .cartNum{
-        flex:2;
-         @extend %juzhong;
-         position: relative;
-         i{
-             font-size: 16px;
-         }
-         span{
-             position: absolute;
-             color: red;
-             right:20%;
-             top:10%
-         }
+    span {
+      position: absolute;
+      color: red;
+      right: 20%;
+      top: 10%;
     }
-    .addCart{
-        flex:3;
-         @extend %juzhong;
-         background: linear-gradient(90deg, #ff9500, #ff5e3a);
-         color: white;
-    }
-    .payGoods{
-        flex:3;
-        @extend %juzhong;
-        background: linear-gradient(90deg, #1d62f0, #19d5fd);
-        color: white;
-    }
+  }
+  .addCart {
+    flex: 3;
+    @extend %juzhong;
+    background: linear-gradient(90deg, #ff9500, #ff5e3a);
+    color: white;
+  }
+  .payGoods {
+    flex: 3;
+    @extend %juzhong;
+    background: linear-gradient(90deg, #1d62f0, #19d5fd);
+    color: white;
+  }
 }
 .newGoods-wrap {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-      }
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 </style>

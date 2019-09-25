@@ -13,8 +13,8 @@
             <span>{{brandDetail.simple_desc}}</span>
           </div>
         </div>
-        <div class="newGoodsBox">
-          <v-newGoodsItem :newGoodsList="brandDetailList"></v-newGoodsItem>
+        <div class="newGoods-wrap">
+          <v-goodsItem v-for="item in brandDetailList" :key="item.id" :item="item" ></v-goodsItem>
         </div>
       </div>
     </div>

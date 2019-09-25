@@ -44,13 +44,14 @@ export default {
   align-items: center;
 }
 
-  .goods-item {
+.goods-item {
   width:49%;
   height: 2rem;
   display: flex;
   flex-direction: column;
   background: white;
   margin-bottom: 1px;
+  margin: 0 1px;
   img {
     width: 100%;
     height: 1.4rem;

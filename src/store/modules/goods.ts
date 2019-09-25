@@ -11,7 +11,7 @@ export default {
         setGoodsDetail(state:any,payload:any){
             
            state.goodsDetail=payload
-           console.log(payload)
+
         },
 
         //goods详情列表
@@ -23,6 +23,7 @@ export default {
         async getGoodsDetailAction({commit}:any,params:any){
             
             let result :any = await requestGoodsDetail(params)
+            console.log(JSON.parse(JSON.stringify(result.data)))
             if(result.errno===0){
                 commit('setGoodsDetail',result.data)
             }else{
