@@ -50,13 +50,8 @@ export default {
   display: flex;
   flex-direction: column;
   background: white;
-<<<<<<< HEAD
-  margin-bottom: 1px;
-  margin: 0 1px;
-=======
   margin: 0 1px 1px 1px;
 
->>>>>>> bb02ec087be6979658786d80f7a88f68b4806322
   img {
     width: 100%;
     height: 1.4rem;

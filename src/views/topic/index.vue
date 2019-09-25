@@ -21,7 +21,7 @@ export default {
     return {
       page: 1,
       uploadTitle: "上拉加载",
-      mouseWheel:true,
+      
     };
   },
   computed: {

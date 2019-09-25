@@ -1,7 +1,7 @@
 <template>
   <dl class="topic-item" @click="()=>jumpDetail(item.id)">
     <dt class="topic-item-img">
-      <img :src="item.scene_pic_url" alt />
+      <img v-lazy="item.scene_pic_url" alt />
     </dt>
     <dd class="topic-item-content">
       <p :style="!isShow&&'height:50px,line-heigth:50px'">{{item.title}}</p>

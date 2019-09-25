@@ -23,9 +23,10 @@
             </div>
             <div class="sub-catelog-wrap">
               <v-categoryItem
-                v-for="item in currentCategory.subCategoryList"
+                v-for="(item,index) in currentCategory.subCategoryList"
                 :key="item.id"
                 :item="item"
+                :index="index"
               ></v-categoryItem>
             </div>
           </div>
@@ -54,7 +55,7 @@ export default {
     }
   },
   created() {
-    this.initCatelogAction();
+    !this.currentCategory.length&&this.initCatelogAction();
     this.setcurrentPage("catelog")
   },
   mounted() {}
