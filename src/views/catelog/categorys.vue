@@ -15,11 +15,7 @@
   </div>
 </template>
 <script>
-<<<<<<< HEAD
-import { mapGetters,mapMutations } from "vuex"
-=======
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
->>>>>>> ae3d3b7e6e3505fae82ddc22ec9260067efec46e
 export default {
   props: {},
   components: {},
