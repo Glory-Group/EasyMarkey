@@ -10,6 +10,7 @@
       <div class="header-right"></div>
     </v-header>
     <div class="main">
+      /**横向导航 */
       <v-nav :list="currentNavList" :type="'abeam'"></v-nav>categorys
     </div>
   </div>
