@@ -17,6 +17,7 @@
   </div>
 </template>
 <script>
+import { mapGetters,mapMutations } from "vuex"
 export default {
   props: {},
   components: {},

@@ -11,6 +11,7 @@ export default {
         setGoodsDetail(state:any,payload:any){
             
            state.goodsDetail=payload
+           console.log(payload)
         },
 
         //goods详情列表

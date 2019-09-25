@@ -37,10 +37,12 @@ export default {
   methods: {
     ...mapActions("home", ["brandDetailAction", "brandDetailListAction"])
   },
-  created() {},
-  mounted() {
+  created() {
     this.brandDetailAction({ id: this.id });
     this.brandDetailListAction({ brandId: this.id });
+  },
+  mounted() {
+    
   }
 };
 </script>

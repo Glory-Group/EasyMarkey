@@ -2,16 +2,16 @@
   <div class="container">
     <v-header>
       <div class="header-back" @click="()=>{this.$router.history.push('/home')}">&lt;</div>
-      <div class="header-content">{{goodsDetail&&goodsDetail.info.name}}</div>
+      <div class="header-content">{{goodsDetail.info&&goodsDetail.info.name}}</div>
       <div class="header-right"></div>
     </v-header>
     <div class="main">
       <div class="content">
-        <div class="swiper-wrap">
+        <div class="swiper-wrap" :style="goodsDetail.gallery&&goodsDetail.gallery.length?'350px':'100px'" >
           <v-swiper
-            :banner="goodsDetail.gallery"
+            :banner="goodsDetail.gallery" 
              type="goodsBanner"
-            :vHeight="goodsDetail.gallery.length?'3.5rem':'1rem'"
+            :vHeight="goodsDetail.gallery&&goodsDetail.gallery.length?'350px':'100px'"
           ></v-swiper>
         </div>
         <div class="serviceList">
@@ -30,13 +30,13 @@
         </div>
         <div class="goodsMsgWrap">
           <div class="goodsNameTitle">
-            <span>{{goodsDetail.info.name}}</span>
+            <span>{{goodsDetail.info&&goodsDetail.info.name}}</span>
           </div>
           <div class="goodsSubTitle">
-            <span>{{goodsDetail.info.goods_brief}}</span>
+            <span>{{goodsDetail.info?goodsDetail.info.goods_brief:''}}</span>
           </div>
           <div class="goodsPrice">
-            <span>￥ {{goodsDetail.info.retail_price}}</span>
+            <span>￥ {{goodsDetail.info&&goodsDetail.info.retail_price}}</span>
           </div>
         </div>
         <div class="goodsSize">
@@ -51,19 +51,19 @@
           <div class="goodsTitleLine">
             <span>—— 商品参数 ——</span>
           </div>
-          <div class="goodsAttList" v-show="goodsDetail.attribute.length">
+          <div class="goodsAttList" v-show="goodsDetail.attribute&&goodsDetail.attribute.length">
             <div class="attributeItem" v-for="item in goodsDetail.attribute" :key="item.id">
               <span>{{item.name}}</span>
               <span>{{item.value}}</span>
             </div>
           </div>
         </div>
-        <div class="goodsImg" v-html="goodsDetail.info.goods_desc"></div>
+        <div class="goodsImg" v-html="goodsDetail.info&&goodsDetail.info.goods_desc"></div>
         <div class="goodsQuestion">
           <div class="goodsTitleLine">
             <span>—— 常见问题 ——</span>
           </div>
-          <div class="goodsProblme" v-for="item in goodsDetail.issue" :key="item.id">
+          <div class="goodsProblme" v-for="item in goodsDetail.issue&&goodsDetail.issue" :key="item.id">
             <div class="problme">
               <span>√</span>
               {{item.question}}
@@ -75,8 +75,8 @@
           <div class="goodsTitleLine">
             <span>—— 大家都在看 ——</span>
           </div>
-          <div class="newGoodsBox">
-            <v-newGoodsItem :newGoodsList="goodsDetailList"></v-newGoodsItem>
+          <div class="newGoods-wrap">
+            <v-goodsItem v-for="item in goodsDetailList" :key="item.id" :item="item" ></v-goodsItem>
           </div>
         </div>
       </div>
@@ -96,6 +96,28 @@
         </div>
       </div>
     </v-footer>
+
+    <div v-show="isSHow" class="dialog">
+      <div class="mask">
+         <div class="top">
+           <div class="msg">
+             <div class="left"></div>
+             <div class="mid"></div>
+             <div class="right"></div>
+           </div>
+           <div class="tit"></div>
+           <div class="num">
+             <span>-</span>
+             <span>0</span>
+             <span>+</span>
+           </div>
+         </div>
+         <div class="btm">
+           <span>加入购物车</span><span>立即下单</span>
+         </div>
+      </div>
+    </div>
+
   </div>
 </template>
 <script>
@@ -105,7 +127,8 @@ export default {
   components: {},
   data() {
     return {
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      isSHow:false
     };
   },
   computed: {
@@ -114,10 +137,12 @@ export default {
   methods: {
     ...mapActions("goods", ["getGoodsDetailAction", "getGoodsDetailListAction"])
   },
-  created() {},
+  created() {
+     this.getGoodsDetailAction({ id: this.id });
+     this.getGoodsDetailListAction({ id: this.id });
+  },
   mounted() {
-    this.getGoodsDetailAction({ id: this.id });
-    this.getGoodsDetailListAction({ id: this.id });
+   
   }
 };
 </script>
@@ -354,4 +379,10 @@ export default {
         color: white;
     }
 }
+.newGoods-wrap {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
 </style>
