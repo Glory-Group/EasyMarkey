@@ -7,6 +7,7 @@
   </dl>
 </template>
 <script>
+import { mapActions, mapMutations } from "vuex";
 export default {
   props: {
     item: {
@@ -19,8 +20,10 @@ export default {
   },
   computed: {},
   methods: {
-    jumpCateGorys(){
-      this.$router.push(`/categorys/${this.item.id}`)
+    ...mapMutations("catelog", ["setSubNav"]),
+    jumpCateGorys() {
+      this.setSubNav();
+      this.$router.push(`/categorys/${this.item.id}`);
     }
   },
   created() {},
@@ -40,9 +43,9 @@ export default {
       height: 100%;
     }
   }
-  .category-item-des{
-      width: 100%;
-      text-align: center;
+  .category-item-des {
+    width: 100%;
+    text-align: center;
   }
 }
 </style>

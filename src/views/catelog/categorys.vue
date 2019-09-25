@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <div class="main">categorys</div>
     <v-header>
-      <div class="header-back" @click="()=>{this.$router.history.go(-1)}">&lt;</div>
+      <div class="header-back" @click="()=>{this.$router.history.push('/catelog')}">&lt;</div>
       <div class="header-content">
         <div class="search-input">
           <span>奇趣分类</span>
@@ -11,13 +10,16 @@
       <div class="header-right"></div>
     </v-header>
     <div class="main">
-      /**横向导航 */
       <v-nav :list="currentNavList" :type="'abeam'"></v-nav>categorys
     </div>
   </div>
 </template>
 <script>
+<<<<<<< HEAD
 import { mapGetters,mapMutations } from "vuex"
+=======
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+>>>>>>> ae3d3b7e6e3505fae82ddc22ec9260067efec46e
 export default {
   props: {},
   components: {},
@@ -30,11 +32,11 @@ export default {
   },
   methods: {
     //methods
-    ...mapMutations("catelog",["setcurrentPage"])
+    ...mapMutations("catelog", ["setcurrentPage"])
   },
   created() {
     //created
-    this.setcurrentPage("caterorys")
+    this.setcurrentPage("categorys");
   },
   mounted() {}
 };

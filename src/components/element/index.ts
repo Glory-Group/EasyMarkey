@@ -8,6 +8,7 @@ import commentITem from "../commentItem/index.vue"
 import Swiper from "../swiper/index.vue"
 import nav from "../nav/index.vue"
 import categoryItem from "../categoryItem/index.vue"
+import searchItem from "../searchItem/index.vue"
 export default{
     install(Vue:any){
         Vue.component("v-footer",vfooter)
@@ -20,5 +21,6 @@ export default{
         Vue.component("v-swiper",Swiper)
         Vue.component("v-nav",nav)
         Vue.component("v-categoryItem",categoryItem)
+        Vue.component("v-searchItem",searchItem)
     }
 }   
