@@ -23,7 +23,7 @@
           <div class="search-history-content">
             <div class="search-history-title">
               <span>历史记录</span>
-              <span @click="clearHistory">清除</span>
+              <i class="iconfont icon-delete" @click="clearHistory"></i>
             </div>
             <v-searchItem
               v-for="(item,index) in historyKeywordList"
@@ -46,7 +46,9 @@
         </div>
       </div>
       <div class="main-content" v-if="isSearch">
-        <div v-for="item in goodsList.data" :key="item.id">{{item.name}}</div>
+        <div class="goods-wrap">
+          <v-goodsItem v-for="item in goodsList.data" :key="item.id" :item="item"></v-goodsItem>
+        </div>
       </div>
     </div>
     <v-footer></v-footer>
@@ -89,15 +91,17 @@ export default {
     cancelSearch() {
       this.isSearch = false;
       this.keyword = this.defaultKeyword.keyword;
-      this.$router.history.go(0);
+      this.isHistory=true
+      // this.$router.history.go(0);
+      // this.initSearchAction()
     },
     async clearHistory() {
       let result = await this.clearHistoryAction();
       if (result.errno === 0) {
         setTimeout(() => {
           this.isHistory = false;
-          alert("清除成功")
-        },100);
+          alert("清除成功");
+        }, 100);
       }
     }
   },
@@ -108,6 +112,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+@import url("//at.alicdn.com/t/font_1434233_kyu83air15r.css");
 .search-ipt-box {
   width: 100%;
   height: 0.5rem;
@@ -167,5 +172,10 @@ export default {
   height: 0.35rem;
   line-height: 0.35rem;
   font-size: 16px;
+}
+.goods-wrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

@@ -25,11 +25,11 @@ export default {
   computed: {},
   methods: {
     jumpedDetail(id) {
-      if (this.$router.history.current.path.includes("/goods")) {
+      if (this.$router.history.current.path.includes("/goods")&&this.$router.history.current.path!=="/goodsSearch") {
         this.$router.push("/goods/" + id);
         this.$router.go(0);
       } else {
-        this.$router.replace("/goods/" + id);
+        this.$router.push("/goods/" + id);
       }
     }
   },
@@ -50,7 +50,8 @@ export default {
   display: flex;
   flex-direction: column;
   background: white;
-  margin-bottom: 1px;
+  margin: 0 1px 1px 1px;
+
   img {
     width: 100%;
     height: 1.4rem;

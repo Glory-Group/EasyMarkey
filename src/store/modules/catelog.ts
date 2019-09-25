@@ -15,34 +15,35 @@ export default {
         currentIndex: 0,//nav导航的当前下标
         currentNavList: [],//nav组件使用的列表
         currentPage: "catelog",//目前使用导航的页面
-        currentId: 0,//当前页面id
         searchData: {},//goodsSearch页面的数据
         defaultKeyword: {},
         historyKeywordList: {},
         hotKeywordList: {},
         goodsList: [],//查询页面 返回查询结果
+        front_name:"",
+        categoryId:0,
+        subGoodsList:[],//category页面的数据列表
     },
     mutations: {
+        //初始化分类页的数据
         initData(state: any, payload: any) {
-            console.log(payload)
             state.categoryList = payload.categoryList
             state.currentCategory = payload.currentCategory
             state.currentNavList = payload.categoryList
-        },
-        setcurrentIndex(state: any, payload: any) {
-            state.currentIndex = payload
-            if (state.currentPage === "catelog") {
-                state.currentId = state.categoryList[payload].id
-            }
+            window.localStorage.setItem("currentNavList",JSON.stringify(payload.categoryList))
         },
         setcurrentCategory(state: any, payload: any) {
             state.currentCategory = payload
+            state.front_name=payload.front_name
+            state.categoryId=payload.id
         },
         setcurrentNavList(state: any, payload: any) {
             state.currentNavList = payload
+            window.localStorage.setItem("currentNavList",JSON.stringify(payload))
         },
         setcurrentPage(state: any, payload: any) {
             state.currentPage = payload
+            
         },
         setInitSearch(state: any, payload: any) {
             let { defaultKeyword, historyKeywordList, hotKeywordList } = payload
@@ -56,7 +57,11 @@ export default {
         },
         setSubNav(state: any) {
             state.currentNavList = state.currentCategory.subCategoryList
-        }
+            window.localStorage.setItem("currentNavList",JSON.stringify(state.currentNavList))
+        },
+        setSubGoosList(state:any,payload:any){
+            state.subGoodsList=payload
+        },
     },
     actions: {
         async initCatelogAction(context: any) {
@@ -70,13 +75,16 @@ export default {
         async changeTabAction(context: any, payload: any) {
             let { commit, state } = context
             let result: any = await requestChangeTab(payload)
-            console.log(result, "alsdalasdad")
-
             if (result.errno === 0) {
                 commit("setcurrentCategory", result.data.currentCategory)
             }
+            if(state.currentPage === "categorys"){
+                let goodsList:any=await requestGoodsList({categoryId:state.categoryId})
+                if(goodsList.errno===0){
+                    commit("setSubGoosList",goodsList.data.data)
+                }
+            }
             return result;
-            return "aaa"
         },
         async goodsSearchAction(context: any, payload: any) {
             let { commit, state } = context
@@ -99,8 +107,6 @@ export default {
         },
         async clearHistoryAction(context:any){
             let result:any=await requestClearHistory()
-            console.log(result,"clear")
-
             return result;
         }
     },
@@ -113,5 +119,8 @@ export default {
         historyKeywordList: (state: any) => state.historyKeywordList,
         hotKeywordList: (state: any) => state.hotKeywordList,
         goodsList: (state: any) => state.goodsList,
+        front_name:(state:any)=>state.front_name,
+        subGoodsList:(state:any)=>state.subGoodsList,
+        currentPage:(state:any)=>state.currentPage,
     }
 }

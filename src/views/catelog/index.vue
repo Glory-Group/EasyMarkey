@@ -11,7 +11,7 @@
     </v-header>
     <div class="main">
       <div class="main-content">
-        <v-nav :list="categoryList" :type="'column'"></v-nav>
+        <v-nav :type="'column'"></v-nav>
         <div class="catelog-wrap">
           <div class="catelog-content">
             <div class="catelog-banner">
@@ -44,7 +44,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters("catelog", ["categoryList", "currentCategory"])
+    ...mapGetters("catelog", ["currentCategory"])
   },
   methods: {
     ...mapActions("catelog", ["initCatelogAction"]),

@@ -10,7 +10,14 @@
       <div class="header-right"></div>
     </v-header>
     <div class="main">
-      <v-nav :list="currentNavList" :type="'abeam'"></v-nav>categorys
+      <div class="main-content">
+        <v-nav :list="currentNavList" :type="'abeam'"></v-nav>
+        <div class="main-content-title">{{front_name}}</div>
+        <div class="main-content-goods">
+          <v-goodsItem v-for="item in subGoodsList" :key="item.id" :item="item">
+          </v-goodsItem>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,19 +30,30 @@ export default {
     return {};
   },
   computed: {
-    //state
-    ...mapGetters("catelog", ["currentNavList"])
+    ...mapGetters("catelog", ["currentNavList", "front_name","subGoodsList"])
   },
   methods: {
-    //methods
     ...mapMutations("catelog", ["setcurrentPage"])
   },
   created() {
-    //created
     this.setcurrentPage("categorys");
   },
   mounted() {}
 };
 </script>
-<style scoped lang="">
+<style scoped lang="scss">
+.main-content {
+  width: 100%;
+}
+.main-content-title{
+  width: 100%;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  text-align: center;
+}
+.main-content-goods{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>
