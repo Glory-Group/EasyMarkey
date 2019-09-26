@@ -1,10 +1,9 @@
 <template>
   <swiper :style="vHeight&&`height:${vHeight}`" :options="swiperOption">
     <swiper-slide v-for="(item) in banner&&banner" :key="item.id">
-      <img v-lazy="item.image_url"  v-if="type==='banner'" style="width:100%;height:100%"/>
-      {{item.image_url}}
-      <img v-lazy="item.img_url"  v-if="type==='goodsBanner'"  style="width:100%;height:100%" >
-      <TopicItem v-if="type==='topicList'"  style="width:330px; margin:0 auto" :isShow="true" :item="item"></TopicItem>
+      <img v-lazy="item.image_url"  v-show="type==='banner'" style="width:100%;height:auto"/>
+      <img v-lazy="item.img_url"  v-show="type==='goodsBanner'"  style="width:100%;height:auto" >
+      <TopicItem v-show="type==='topicList'"  style="width:330px; margin:0 auto" :isShow="true" :item="item"></TopicItem>
     </swiper-slide>
   </swiper>
 </template>

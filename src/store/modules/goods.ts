@@ -1,4 +1,4 @@
-import {requestGoodsDetail,requestGoodsDetailList} from "@/service/index"
+import {requestGoodsDetail,requestGoodsDetailList,requestlikeGoods} from "@/service/index"
 export default {
     namespaced: true,
     state:{
@@ -36,9 +36,15 @@ export default {
             let result:any = await requestGoodsDetailList(params)
             if(result.errno===0){
                 commit('setGoodsDetailList',result.data)
+               
             }else{
                 commit('setGoodsDetailList',result)
             }
+        },
+
+        async getLikeGoodsMsgAction({commit}:any,params:any){
+            let result:any=await requestlikeGoods(params)
+           return result
         }
 
     }

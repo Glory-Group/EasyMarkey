@@ -1,4 +1,4 @@
-import {requestCartGoodsCount,requestaddCart,requestCarList,requestCheckItem,requestDeleteItem,requestUpdateList} from "@/service/index"
+import {requestaddCart,requestCarList,requestCheckItem,requestDeleteItem,requestUpdateList} from "@/service/index"
 export default {
     namespaced: true,
     state:{
@@ -17,7 +17,7 @@ export default {
     },
     actions: {
         async  getCarCountAction({commit}:any){
-             let result:any= await requestCartGoodsCount()
+             let result:any= await requestCarList()
              if(result.errno===0){
                  commit('setCarCount',result.data)
              }else{
@@ -42,6 +42,7 @@ export default {
         },
         async getCheckResultAction({commit}:any,params:any){
             let result:any= await requestCheckItem(params)
+            commit('setShopList',result.data)
             return result
         },
         async getDeleteMsgAction({commit}:any,params:any){

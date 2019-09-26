@@ -90,7 +90,8 @@ export default {
   data() {
     return {
       bianji: false,
-      checkNum: ""
+      checkNum: "",
+      checkAllList:false
     };
   },
   computed: {
@@ -110,6 +111,7 @@ export default {
           isChecked: 0,
           productIds: productId
         });
+        this.checkAllList=false
       } else if (checked === 0) {
         this.result = await this.getCheckResultAction({
           isChecked: 1,
@@ -117,35 +119,38 @@ export default {
         });
       }
       if (this.result.errno === 0) {
+  
         this.data = this.result.data.cartList.filter(
           item => item.checked === 1
         );
         this.checkNum = this.data.length;
-        this.getShopCarListAction();
       }
     },
     //全选
-    checkAll() {
-      this.shopCarList.forEach(async (item, index) => {
-        if (item.checked === 0) {
-          this.result = await this.getCheckResultAction({
-            isChecked: 1,
-            productIds: item.product_id
-          });
-        } else if (item.checked === 1) {
+   checkAll() {
+      this.shopCarList.forEach(async item=>{
+         if (this.checkAllList) {
           this.result = await this.getCheckResultAction({
             isChecked: 0,
             productIds: item.product_id
           });
+          this.checkAllList=false
+        } else  {
+          this.result = await this.getCheckResultAction({
+            isChecked: 1,
+            productIds: item.product_id
+          });
+          this.checkAllList=true
         }
-        if (this.result.errno === 0) {
+           if (this.result.errno === 0) {
           this.data = this.result.data.cartList.filter(
             item => item.checked === 1
           );
           this.checkNum = this.data.length;
           this.getShopCarListAction();
         }
-      });
+      
+      })
     },
     //删除所选
     async deleteList() {
@@ -163,7 +168,7 @@ export default {
     },
     //加加减减
     async changeNum(item, flag) {
-      let { goods_id, id, number, product_id } = item; //goodsId: 1151012  id: 352   number: 5   productId: 229
+      let { goods_id, id, number, product_id } = item;
       if (flag) {
         number = number + 1;
       } else {
@@ -200,7 +205,7 @@ export default {
   created() {
     this.getShopCarListAction();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style scoped lang="scss">

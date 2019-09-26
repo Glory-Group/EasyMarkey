@@ -51,7 +51,6 @@ export default {
   flex-direction: column;
   background: white;
   margin: 0 1px 1px 1px;
-
   img {
     width: 100%;
     height: auto;

@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll-wrap" ref="scrollWrap">
+  <div class="main" ref="main">
       <div class="content">
            <div v-for="(item) in list.topicList&&list.topicList" :key="item.id" class="main-content-item">
           <TopicItem :item="item" :isShow=true></TopicItem>
@@ -42,7 +42,6 @@ export default {
   },
   created() {},
   mounted() {
-      console.log(JSON.parse(JSON.stringify(this.list )))
     this.scroll = new BScroll(this.$refs.scrollWrap, {
       click: true,
       probeType: 3,
@@ -69,7 +68,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.scroll-wrap {
+.main {
   overflow: hidden;
 }
 .main-content {

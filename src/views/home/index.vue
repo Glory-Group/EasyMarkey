@@ -107,7 +107,7 @@ export default {
       mouseWheel: true
     });
     this.scroll.on("scrollEnd", e => {
-      if (e.y < this.scroll.maxScrollY + 100) {
+      if (e.y == this.scroll.maxScrollY ) {
         if (this.page < this.totalPage) {
           setTimeout(() => {
             this.page = this.page + 1;

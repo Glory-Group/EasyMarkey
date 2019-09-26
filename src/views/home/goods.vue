@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <v-header>
-      <div class="header-back" @click="()=>{this.$router.history.push('/home')}">&lt;</div>
+      <div class="header-back" @click="()=>{this.$router.history.go(-1)}">&lt;</div>
       <div class="header-content">{{goodsDetail.info&&goodsDetail.info.name}}</div>
       <div class="header-right"></div>
     </v-header>
@@ -90,7 +90,8 @@
     </div>
     <v-footer>
       <div class="goodsFoot">
-        <div class="isLike">收藏</div>
+        <div class="isLike" v-show="isLike===false" @click="likeGoods(1)" >收藏</div>
+        <div class="isLike" v-show="isLike===true" @click="likeGoods(0)" >已收藏</div>
         <div class="cartNum" @click="()=>this.$router.push('/cart')" >
           <i class="iconfont icon-weibiaoti--"></i>
           <span>{{carCount}}</span>
@@ -149,7 +150,8 @@ export default {
     return {
       id: this.$route.params.id,
       isShow: false,
-      number: 0
+      number: 0,
+      isLike:false
     };
   },
   computed: {
@@ -162,6 +164,7 @@ export default {
       "getGoodsDetailListAction"
     ]),
     ...mapActions("shopCar", ["getCarCountAction", "getaddCarAction"]),
+    ...mapActions("goods",['getLikeGoodsMsgAction']),
     showMask() {
       this.isShow = true;
     },
@@ -201,6 +204,15 @@ export default {
     payNow() {
       alert("下单功能正在完善。");
       this.isShow = false;
+    },
+    //收藏
+   async  likeGoods(typeId){
+         this.result = await this.getLikeGoodsMsgAction({typeId,valueId:this.id})
+         if(this.result.data.type=="add"){
+           this.isLike=true
+         }else if(this.result.data.type==='delete'){
+           this.isLike=false
+         }
     }
   },
   created() {

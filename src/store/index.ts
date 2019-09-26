@@ -6,6 +6,8 @@ import topic from "./modules/topic"
 import goods from "./modules/goods"
 import catelog from "./modules/catelog"
 import shopCar from "./modules/shopCar"
+import collect from "./modules/collect"
+import address from "./modules/address"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -15,6 +17,8 @@ export default new Vuex.Store({
     home,
     goods,
     catelog,
-    shopCar
+    shopCar,
+    collect,
+    address
   }
 })
