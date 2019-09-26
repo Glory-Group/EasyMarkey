@@ -54,7 +54,7 @@ export default {
 
   img {
     width: 100%;
-    height: 1.4rem;
+    height: auto;
   }
   .goods-info {
     width: 100%;

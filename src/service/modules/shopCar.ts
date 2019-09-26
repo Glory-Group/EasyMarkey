@@ -11,3 +11,15 @@ export let requestaddCart=(params:any)=>{
 export let requestCarList=()=>{
     return request.get("/cart/index")
 }
+
+export let requestCheckItem=(params:any)=>{
+   return request.post("/cart/checked",params)
+}
+
+export let requestDeleteItem=(params:any)=>{
+    return request.post("/cart/delete",params)
+}
+
+export let requestUpdateList=(params:any)=>{
+    return request.post("/cart/update",params)
+}

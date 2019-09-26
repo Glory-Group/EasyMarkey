@@ -44,7 +44,7 @@
         </div>
         <div class="goodsSize">
           <div></div>
-          <div>x 0</div>
+          <div>x {{number}}</div>
           <div @click="showMask()">
             选择规格
             <span>></span>
@@ -188,7 +188,7 @@ export default {
         if (result.errno === 0) {
           alert("添加成功");
           this.isShow=false;
-          this.number=0
+          //this.number=0
         } else {
           alert("添加失败");
         }
