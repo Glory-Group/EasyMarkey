@@ -73,6 +73,7 @@ export default {
   created() {
     this.setcurrentPage("categorys");
     this.changeSubTabAction(this.id);
+    this.changeTabAction({id:this.id})
     this.currentNavList.length && this.currentCatelogAction();
     console.log(this.subcategory, "subcategory");
   },

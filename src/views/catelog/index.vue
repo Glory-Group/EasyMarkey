@@ -15,15 +15,15 @@
         <div class="catelog-wrap">
           <div class="catelog-content">
             <div class="catelog-banner">
-              <img v-lazy="currentCategory.banner_url" alt />
-              <span class="catelog-banner-descripe">{{currentCategory.front_name}}</span>
+              <img v-lazy="currentCatelog.banner_url" alt />
+              <span class="catelog-banner-descripe">{{currentCatelog.front_name}}</span>
             </div>
             <div class="catelog-title">
-              <div>{{currentCategory.name}}分类</div>
+              <div>{{currentCatelog.name}}分类</div>
             </div>
             <div class="sub-catelog-wrap">
               <v-categoryItem
-                v-for="(item,index) in currentCategory.subCategoryList"
+                v-for="(item,index) in currentCatelog.subCategoryList"
                 :key="item.id"
                 :item="item"
                 :index="index"
@@ -45,7 +45,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters("catelog", ["currentCategory"])
+    ...mapGetters("catelog", ["currentCatelog"])
   },
   methods: {
     ...mapActions("catelog", ["initCatelogAction"]),
@@ -55,7 +55,7 @@ export default {
     }
   },
   created() {
-    !this.currentCategory.length&&this.initCatelogAction();
+    !this.currentCatelog.length&&this.initCatelogAction();
     this.setcurrentPage("catelog")
   },
   mounted() {}
