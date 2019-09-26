@@ -12,7 +12,7 @@
     <div class="main">
       <div class="main-content">
         <v-nav :list="currentNavList" :type="'abeam'"></v-nav>
-        <div class="main-content-title">{{front_name}}</div>
+        <div class="main-content-title">{{categoryFrontName}}</div>
         <div class="main-content-goods">
           <v-BScroll
             :totalPages="totalPages"
@@ -37,7 +37,8 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      totalPages: this.subcategory && this.subcategory.totalPages
+      totalPages: this.subcategory && this.subcategory.totalPages,
+      title: window.localStorage.getItem("categoryFrontName")
     };
   },
   computed: {
@@ -48,7 +49,8 @@ export default {
       "catelogId",
       "subcategory",
       "categoryCurrentPage",
-      "categoryTotalPages"
+      "categoryTotalPages",
+      "categoryFrontName"
     ])
   },
   methods: {
@@ -61,21 +63,19 @@ export default {
       "scrollUpload"
     ]),
     async backCatelog() {
-      let result = await this.initCatelogAction();
-      let changeItem = await this.changeTabAction({ id: this.catelogId });
-      if (result.errno === 0) {
-        if (changeItem.errno === 0) {
-          this.$router.history.push("/catelog");
-        }
-      }
+      // let result = await 
+      this.initCatelogAction();
+      this.setcurrentPage("catelog")
+      // let changeItem = await
+       this.changeTabAction({ id:window.localStorage.getItem("catelogId") });
+      this.$router.history.push("/catelog");
     }
   },
-  created() {
+  async created() {
     this.setcurrentPage("categorys");
-    this.changeSubTabAction(this.id);
-    this.changeTabAction({id:this.id})
-    this.currentNavList.length && this.currentCatelogAction();
-    console.log(this.subcategory, "subcategory");
+    let result = await this.changeSubTabAction(this.id);
+    this.changeTabAction({ id: window.localStorage.getItem("categoryId") });
+
   },
   mounted() {}
 };

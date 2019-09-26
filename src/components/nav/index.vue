@@ -11,7 +11,7 @@
   </nav>
 </template>
 <script>
-import { mapMutations,mapActions,mapGetters } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 export default {
   props: {
     list: {
@@ -25,30 +25,42 @@ export default {
   data() {
     return {
       currentIndex: 0,
-      navList:[]
+      navList: []
     };
   },
   computed: {
-    ...mapGetters("catelog",["currentNavList","currentPage","catelogCurrentIndex","categoryCurrentIndex"])
+    ...mapGetters("catelog", [
+      "currentNavList",
+      "currentPage",
+      "catelogCurrentIndex",
+      "categoryCurrentIndex"
+    ])
   },
   methods: {
-    ...mapActions("catelog",["changeTabAction"]),
-    ...mapMutations("catelog",["setCurrentIndex"]),
-    changeTab(item, index) {
+    ...mapActions("catelog", ["changeTabAction"]),
+    ...mapMutations("catelog", ["setCurrentIndex"]),
+    async changeTab(item, index) {
       this.currentIndex = index;
-      this.changeTabAction({id:item.id})
-      this.setCurrentIndex(this.currentIndex)
+      let result=await this.changeTabAction({ id: item.id });
+       console.log(result,"pageresult")
+      this.setCurrentIndex(this.currentIndex);
     }
   },
   created() {
-    this.navList=JSON.parse(window.localStorage.getItem("currentNavList"))
-    if(this.currentPage==="catelog"){
-      this.currentIndex=this.catelogCurrentIndex
-    }else if(this.currentPage==="categorys"){
-      this.currentIndex=this.categoryCurrentIndex
+    
+    if (this.currentPage === "catelog") {
+      this.currentIndex = Number(
+        window.localStorage.getItem("catelogCurrentIndex")
+      );
+    } else if (this.currentPage === "categorys") {
+      this.currentIndex = Number(
+        window.localStorage.getItem("categoryCurrentIndex")
+      );
     }
   },
-  mounted() {}
+  mounted() {
+    this.navList = JSON.parse(window.localStorage.getItem("currentNavList"));
+  }
 };
 </script>
 <style scoped lang="scss">

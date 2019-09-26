@@ -45,18 +45,23 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters("catelog", ["currentCatelog"])
+    ...mapGetters("catelog", ["currentCatelog", "front_name"])
   },
   methods: {
-    ...mapActions("catelog", ["initCatelogAction"]),
-    ...mapMutations("catelog",["setcurrentPage"]),
+    ...mapActions("catelog", ["initCatelogAction", "currentCatelogAction"]),
+    ...mapMutations("catelog", ["setcurrentPage"]),
     jumpSearch() {
       this.$router.push("/goodsSearch");
     }
   },
   created() {
-    !this.currentCatelog.length&&this.initCatelogAction();
-    this.setcurrentPage("catelog")
+    let flag = window.localStorage.getItem("catelogId");
+    if (flag) {
+      this.currentCatelogAction();
+    } else {
+      this.initCatelogAction();
+    }
+    this.setcurrentPage("catelog");
   },
   mounted() {}
 };
@@ -115,7 +120,7 @@ export default {
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
-    padding: 0 .05rem .05rem .05rem;
+    padding: 0 0.05rem 0.05rem 0.05rem;
   }
 }
 </style>
