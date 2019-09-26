@@ -19,3 +19,7 @@ export let requestInitSearch=()=>{
 export let requestClearHistory=()=>{
     return request.get("/search/clearhistory")
 }
+///catalog/current 获取当前分类页面
+export let requestCurrentCatelog=(params:any)=>{
+    return request.get("catalog/current",{params})
+}

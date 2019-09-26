@@ -12,6 +12,9 @@ export default {
   props: {
     item: {
       type: Object
+    },
+    index:{
+      type:Number
     }
   },
   components: {},
@@ -23,7 +26,7 @@ export default {
     ...mapMutations("catelog", ["setSubNav"]),
     ...mapActions("catelog",["changeTabAction"]),
     jumpCateGorys() {
-      this.setSubNav();
+      this.setSubNav(this.index);
        this.changeTabAction({id:this.item.id})
       this.$router.push(`/categorys/${this.item.id}`);
     }

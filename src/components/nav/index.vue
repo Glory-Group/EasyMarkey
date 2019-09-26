@@ -3,7 +3,7 @@
     <div class="nav-content" :style="currentIndex>2&&'transition:-10px'">
       <div
         :class="currentIndex===index?'nav-item active':'nav-item'"
-        v-for="(item,index) in currentNavList"
+        v-for="(item,index) in navList"
         :key="item.id"
         @click="()=>changeTab(item,index)"
       >{{item.name}}</div>
@@ -29,17 +29,24 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("catelog",["currentNavList","currentPage"])
+    ...mapGetters("catelog",["currentNavList","currentPage","catelogCurrentIndex","categoryCurrentIndex"])
   },
   methods: {
     ...mapActions("catelog",["changeTabAction"]),
+    ...mapMutations("catelog",["setCurrentIndex"]),
     changeTab(item, index) {
       this.currentIndex = index;
       this.changeTabAction({id:item.id})
+      this.setCurrentIndex(this.currentIndex)
     }
   },
   created() {
-    this.navList=JSON.parse(JSON.stringify(this.currentNavList))
+    this.navList=JSON.parse(window.localStorage.getItem("currentNavList"))
+    if(this.currentPage==="catelog"){
+      this.currentIndex=this.catelogCurrentIndex
+    }else if(this.currentPage==="categorys"){
+      this.currentIndex=this.categoryCurrentIndex
+    }
   },
   mounted() {}
 };

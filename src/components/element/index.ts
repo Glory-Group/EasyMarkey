@@ -10,6 +10,7 @@ import nav from "../nav/index.vue"
 import categoryItem from "../categoryItem/index.vue"
 import searchItem from "../searchItem/index.vue"
 import scroll from "../scrollView/index.vue"
+import bscroll from "../scroll/index.vue"
 export default{
     install(Vue:any){
         Vue.component("v-footer",vfooter)
@@ -24,5 +25,6 @@ export default{
         Vue.component("v-categoryItem",categoryItem)
         Vue.component("v-searchItem",searchItem)
         Vue.component("v-scroll",scroll)
+        Vue.component("v-BScroll",bscroll)
     }
 }   
