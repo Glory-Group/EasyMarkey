@@ -23,10 +23,12 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapMutations("catelog", ["setSubNav"]),
+    ...mapMutations("catelog", ["setSubNav","setcurrentPage"]),
     ...mapActions("catelog",["changeTabAction"]),
     jumpCateGorys() {
       this.setSubNav(this.index);
+      this.setcurrentPage("categorys")
+      console.log(this.item.id,"11111111111111")
        this.changeTabAction({id:this.item.id})
       this.$router.push(`/categorys/${this.item.id}`);
     }

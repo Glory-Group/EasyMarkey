@@ -2,7 +2,7 @@
   <div class="scroll-wrap" ref="scrollWrap">
     <div class="scroll-content">
       <slot></slot>
-      <!-- <div class="upload">{{uploadTitle}}</div> -->
+      <div class="upload">{{uploadTitle}}</div>
     </div>
   </div>
 </template>
@@ -23,27 +23,54 @@ export default {
   components: {},
   data() {
     return {
-      uploadTitle: "上拉加载",
+      uploadTitle: "上拉加载"
     };
   },
   computed: {},
   methods: {},
-  created() {},
+  created() {
+    this.uploadTitle = "上拉加载";
+  },
   mounted() {
     this.scroll = new BScroll(this.$refs.scrollWrap, {
+      pullDownRefresh: {
+        threshold: 90,
+        stop: 40
+      },
+      pullUpLoad: {
+        threshold: -90,
+        stop: -40
+      },
       click: true,
       probeType: 3,
       mouseWheel: true //鼠标滚轮
     });
-    this.scroll.on("scrollEnd", e => {
-      if (e.y === this.scroll.maxScrollY) {
-        //this.changeCurrent();
-        this.loadMoreDispatch()
-        console.log(this.current, this.totalPage, "scrolll");
-
+    this.scroll.on("pullingUp", () => {
+      alert("0");
+      console.log(this.current, this.totalPage);
+      if (this.current < this.totalPage) {
+        this.uploadTitle = "正在加载......";
+        setTimeout(() => {
+          this.uploadTitle = "上拉加载";
+          this.loadMoreDispatch();
+          this.scroll.refresh();
+          this.scroll.finishPullUp();
+        }, 1000);
+      }else{
+         this.uploadTitle = "没有数据了";
       }
     });
-  }
+
+    // myScroll.on('pullingDown', function () {
+
+    //   setTimeout(function () {
+    //     myScroll.refresh()
+    //     myScroll.finishPullDown()
+    //   }, 3000)
+
+    // })
+  },
+  updated() {}
 };
 </script>
 <style scoped lang="scss">
@@ -57,6 +84,7 @@ export default {
   }
 }
 .upload {
+  width: 100%;
   height: 0.44rem;
   background-color: cornflowerblue;
   line-height: 0.44rem;
