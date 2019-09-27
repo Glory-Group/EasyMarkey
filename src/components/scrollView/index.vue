@@ -60,7 +60,8 @@ export default {
           this.uploadTitle = "正在加载";
         }
         await this.loadMore("/topic/list", this.list.query.page + 1);
-        this.scroll.finishPullUp();
+     
+         this.scroll.finishPullUp();
       });
 
       this.scroll.on("pullingDown", async () => {
@@ -68,7 +69,7 @@ export default {
           this.refreshTitle = "正在刷新";
         }
         await this.refresh("/topic/list", this.list.query.page + 1);
-       
+        
         this.scroll.finishPullDown();
       });
     }else{
