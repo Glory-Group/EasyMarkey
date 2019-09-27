@@ -8,7 +8,19 @@ let Routes = new Router({
   base: process.env.BASE_URL,
   routes
 })
-// Routes.beforeEach((to,from,next)=>{
-// console.log(to,"to")
-// })
+
+Routes.beforeEach((to:any, from:any, next:any) => {
+  if (to.meta.requireAuth) {
+      if (window.localStorage.getItem("token")) {
+          next()
+      } else {
+          next({
+              path: "/login"
+          })
+      }
+  } else {
+      next()
+  }
+})
+
 export default Routes;

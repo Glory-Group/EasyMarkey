@@ -8,6 +8,7 @@ import catelog from "./modules/catelog"
 import shopCar from "./modules/shopCar"
 import collect from "./modules/collect"
 import address from "./modules/address"
+import category from "./modules/caregory"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     catelog,
     shopCar,
     collect,
-    address
+    address,
+    category
   }
 })

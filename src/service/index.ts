@@ -6,4 +6,6 @@ export * from "./modules/goods"
 export * from "./modules/catelog"
 export * from "./modules/shopCar"
 export * from "./modules/collect"
+export * from "./modules/caregory"
 export * from "./modules/address"
+

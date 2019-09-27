@@ -98,9 +98,9 @@ export default {
     }
   },
   created() {
-    this.homeListAction();
   },
   mounted() {
+    this.homeListAction();
     this.scroll = new BScroll(this.$refs.main, {
       click: true,
       probeType: 3,

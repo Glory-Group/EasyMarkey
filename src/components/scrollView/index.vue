@@ -1,82 +1,100 @@
 <template>
-  <div class="main" ref="main">
-      <div class="content">
-           <div v-for="(item) in list.topicList&&list.topicList" :key="item.id" class="main-content-item">
-          <TopicItem :item="item" :isShow=true></TopicItem>
-        </div>
-        <div class="upload">{{uploadTitle}}</div>
-      </div>
+  <div class="scrollWrap" ref="scrollWrap">
+    <div class="content">
+      <slot :data="list.value"></slot>
+      <div class="refresh">{{refreshTitle}}</div>
+      <div class="upload">{{uploadTitle}}</div>
+    </div>
   </div>
 </template>
 <script>
-import { mapActions, mapGetters ,mapMutations} from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import BScroll from "better-scroll";
 export default {
   props: {
-     list: {
-    //   query: Object, //查询条件
-      limit: Number,// 每次查询的数量 默认10
-    //   count: Number, //最后一次查询结果返回的长度 用来控制loadMore的显示与否
-    //   refreshDispatch: String ,//// pull-refresh //查询的store dispacthName, 当需要下拉刷新的时候才传
-      loadMoreDispatch: String,// loadMore 查询的store dispacthName
-      currentPage:String,//加载的页数
-    //   value:  Array ,//查询结果
-      topicList:Array,
-      totalPages:Number
+    list: {
+      type: Object,
+      default: {
+        query: {},
+        limit: "",
+        count: "",
+        value: [],
+        refreshDispatch: "",
+        loadMoreDispatch: ""
+      }
     }
-
   },
   components: {},
   data() {
     return {
-        uploadTitle: "上拉加载",
-        page:1
+      uploadTitle: "上拉加载",
+      refreshTitle: "下拉刷新"
     };
   },
-  computed: {
-//...mapGetters("topic", ["topicList", "totalPages", "currentPage"])
-  },
   methods: {
-//...mapActions("topic", ["topicListAction"]),
-//...mapMutations("topic", ["setCurrentPage",]),
+    async refresh(url, page) {
+      await this.$store.dispatch(this.list.refreshDispatch, { url, page });
+    },
+    async loadMore(url, page) {
+      await this.$store.dispatch(this.list.loadMoreDispatch, { url, page });
+    }
   },
-  created() {},
   mounted() {
-    this.scroll = new BScroll(this.$refs.scrollWrap, {
-      click: true,
-      probeType: 3,
-      mouseWheel: true //鼠标滚轮
-    });
-     this.scroll.on("scrollEnd", e => {
-      if (e.y === this.scroll.maxScrollY) {
-        if (this.page < this.list.totalPages) {
-          this.uploadTitle = "正在加载......";
-          setTimeout(() => {
-            this.uploadTitle = "上拉加载";
-            this.page = this.page + 1;
-            let fn=this.$store._actions[this.list.loadMoreDispatch][0]
-            let P=this.$store._mutations[this.list.currentPage][0]
-            P(this.page);
-            fn({ page: this.page,size:this.limit });
-          }, 1000);
-        } else {
-          this.uploadTitle = "没有数据了。。。";
+    if (!this.scroll) {
+      this.scroll = new BScroll(this.$refs.scrollWrap, {
+        pullDownRefresh: {
+          threshold: 90,
+          stop: 40
+        },
+        pullUpLoad: {
+          threshold: -90,
+          stop: -40
+        },
+        click: true,
+        probeType: 3,
+        mouseWheel: true //鼠标滚轮
+      });
+
+      this.scroll.on("pullingUp", async () => {
+        if ((this.scroll.y = -40)) {
+          this.uploadTitle = "正在加载";
         }
-      }
-    });
+        await this.loadMore("/topic/list", this.list.query.page + 1);
+        this.scroll.finishPullUp();
+      });
+
+      this.scroll.on("pullingDown", async () => {
+        if ((this.scroll.y = 40)) {
+          this.refreshTitle = "正在刷新";
+        }
+        await this.refresh("/topic/list", this.list.query.page + 1);
+       
+        this.scroll.finishPullDown();
+      });
+    }else{
+          this.scroll.refresh();
+    }
   }
 };
 </script>
 <style scoped lang="scss">
-.main {
+.scrollWrap {
   overflow: hidden;
 }
-.main-content {
+.content {
   width: 100%;
   height: auto;
+  position: relative;
 }
-.main-content-item {
+
+.refresh {
   width: 100%;
+  height: 0.44rem;
+  background-color: cornflowerblue;
+  line-height: 0.44rem;
+  text-align: center;
+  position: absolute;
+  top: -0.44rem;
 }
 .upload {
   height: 0.44rem;
