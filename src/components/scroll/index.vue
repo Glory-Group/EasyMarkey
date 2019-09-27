@@ -46,8 +46,6 @@ export default {
       mouseWheel: true //鼠标滚轮
     });
     this.scroll.on("pullingUp", () => {
-      alert("0");
-      console.log(this.current, this.totalPage);
       if (this.current < this.totalPage) {
         this.uploadTitle = "正在加载......";
         setTimeout(() => {
