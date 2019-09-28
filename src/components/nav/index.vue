@@ -1,11 +1,11 @@
 <template>
-  <nav :class="type==='column'?'column-nav':'abeam-nav'">
-    <div class="nav-content" :style="currentIndex>2&&'transition:-10px'">
+  <nav :class="type==='column'?'column-nav':'abeam-nav'" ref="navContent" >
+    <div class="nav-content" :style="currentIndex>2&&'transition:-10px'"  >
       <div
         :class="currentIndex===index?'nav-item active':'nav-item'"
         v-for="(item,index) in navList"
         :key="item.id"
-        @click="()=>changeTab(item,index)"
+        @click="(e)=>changeTab(e,item,index)"
       >{{item.name}}</div>
     </div>
   </nav>
@@ -25,7 +25,9 @@ export default {
   data() {
     return {
       currentIndex: 0,
-      navList: []
+      navList: [],
+      navWidth: "",
+      event:''
     };
   },
   computed: {
@@ -39,27 +41,41 @@ export default {
   methods: {
     ...mapActions("catelog", ["changeTabAction"]),
     ...mapMutations("catelog", ["setCurrentIndex"]),
-    async changeTab(item, index) {
+    async changeTab(e, item, index) {
+      if(this.currentPage==='categorys'){
+        if(index>2&&index<this.navList.length-3){
+                this.event.scrollLeft=375/5*(index-2)
+        }
+      }
       this.currentIndex = index;
-      let result=await this.changeTabAction({ id: item.id });
-       console.log(result,"pageresult")
+      let result = await this.changeTabAction({ id: item.id });
+
       this.setCurrentIndex(this.currentIndex);
-    }
+    },
+    changeNav() {
+      //nav总宽度
+       this.event = this.$refs.navContent;
+
+    },
   },
   created() {
-    
     if (this.currentPage === "catelog") {
       this.currentIndex = Number(
         window.localStorage.getItem("catelogCurrentIndex")
       );
+      
     } else if (this.currentPage === "categorys") {
       this.currentIndex = Number(
         window.localStorage.getItem("categoryCurrentIndex")
       );
+       if(this.currentIndex >2&&this.currentIndex <this.navList.length-3){
+                this.event.scrollLeft=375/5*(this.currentIndex-2)
+        }
     }
   },
   mounted() {
     this.navList = JSON.parse(window.localStorage.getItem("currentNavList"));
+    this.changeNav();
   }
 };
 </script>

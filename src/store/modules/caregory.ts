@@ -7,7 +7,7 @@ const state={
        order:'',
        page:1,
        size:'',
-       totalPage:''
+       totalPages:''
    },
    limit:10,
    count:0,
@@ -18,14 +18,17 @@ const state={
 const mutations={
    setPage(state:any,payload:any){
        state.query.page=payload
+      
    },
    setValue(state:any,payload:any){
        state.value=payload.data
        state.count=payload.count
+       state.query.totalPages=payload.totalPages
    },
    appendValue(state:any,payload:any){
        state.value=state.value.concat(payload.data)
        state.count=payload.count
+       state.query.totalPages=payload.totalPages
    }
 }
 

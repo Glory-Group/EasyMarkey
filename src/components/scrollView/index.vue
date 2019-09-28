@@ -58,22 +58,30 @@ export default {
       this.scroll.on("pullingUp", async () => {
         if ((this.scroll.y = -40)) {
           this.uploadTitle = "正在加载";
+          if (this.list.query.page < this.list.query.totalPages) {
+            await this.loadMore("/topic/list", this.list.query.page + 1);
+            this.scroll.finishPullUp();
+            this.uploadTitle = "上拉加载";
+          } else {
+            this.uploadTitle = "没有数据了····";
+          }
         }
-        await this.loadMore("/topic/list", this.list.query.page + 1);
-     
-         this.scroll.finishPullUp();
       });
 
       this.scroll.on("pullingDown", async () => {
         if ((this.scroll.y = 40)) {
           this.refreshTitle = "正在刷新";
+          if (this.list.query.page < this.list.query.totalPages) {
+            await this.refresh("/topic/list", this.list.query.page + 1);
+            this.scroll.finishPullDown();
+            this.refreshTitle = "上拉刷新";
+          }else{
+            this.refreshTitle="没有数据了····"
+          }
         }
-        await this.refresh("/topic/list", this.list.query.page + 1);
-        
-        this.scroll.finishPullDown();
       });
-    }else{
-          this.scroll.refresh();
+    } else {
+      this.scroll.refresh();
     }
   }
 };
